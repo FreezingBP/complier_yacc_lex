@@ -2,8 +2,9 @@
 
 typedef enum {false = 0, true= 1 } bool; 
 typedef struct symbol {
-char * id;
-char * kind,type;
+char*  id;
+char*  kind;
+char* type;
 int isFunc;
 int paraNum;
 
@@ -37,6 +38,17 @@ struct node *tree;
 
 
 
+/*################################ nodes functions #############################33*/
+node *initNodes(char *token,node *node1,node* node2,node* node3,node* node4,node* node5,node* node6);
+node *makenode(char *token); 
+node *makeTree6(char *token,node *node1,node* node2,node* node3,node* node4,node* node5,node* node6);
+node *makeTree5(char *token,node *node1,node* node2,node* node3,node* node4,node* node5);
+node *makeTree4(char *token,node *node1,node* node2,node* node3,node* node4);
+node *makeTree3(char *token,node *node1,node* node2,node* node3);
+node *makeTree2(char *token,node *node1,node* node2);
+node *makeTree1(char *token,node *node1);
+void addChild(node *parent,node *child);
+void printtree(node *tree, int index);
 
 /*################################ symbol  functions #############################33*/
 struct symbol *initSymbol(char* id,char* kind  ,char* type,bool isFunc);    
@@ -66,9 +78,9 @@ bool find_redelcatrion(symbol* , symbolList*);
 struct symbolTable initTable();
 void insert(symbolTable*,symbol*);
 void addParent(symbolList*,symbolList*);
-
-void insertVar(node * tree );
-void checkTree(node* tree);
+void startCode(node* tree,symbolTable table);
+void insertVar(node * tree ,symbolTable table);
+void checkTree(node* tree,symbolTable table);
 
 
 

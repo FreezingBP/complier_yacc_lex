@@ -1,4 +1,4 @@
-/* A Bison parser, made by GNU Bison 3.7.  */
+/* A Bison parser, made by GNU Bison 3.5.1.  */
 
 /* Bison interface for Yacc-like parsers in C
 
@@ -31,9 +31,8 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-/* DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
-   especially those whose name start with YY_ or yy_.  They are
-   private implementation details that can be changed or removed.  */
+/* Undocumented macros, especially those whose name start with YY_,
+   are private implementation details.  Do not rely on them.  */
 
 #ifndef YY_YY_Y_TAB_H_INCLUDED
 # define YY_YY_Y_TAB_H_INCLUDED
@@ -45,78 +44,70 @@
 extern int yydebug;
 #endif
 
-/* Token kinds.  */
+/* Token type.  */
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
   enum yytokentype
   {
-    YYEMPTY = -2,
-    YYEOF = 0,                     /* "end of file"  */
-    YYerror = 256,                 /* error  */
-    YYUNDEF = 257,                 /* "invalid token"  */
-    BCOMMENT = 258,                /* BCOMMENT  */
-    ECOMMENT = 259,                /* ECOMMENT  */
-    IF = 260,                      /* IF  */
-    ELSE = 261,                    /* ELSE  */
-    INT = 262,                     /* INT  */
-    RETURN = 263,                  /* RETURN  */
-    VOID = 264,                    /* VOID  */
-    WHILE = 265,                   /* WHILE  */
-    PLUS = 266,                    /* PLUS  */
-    MINUS = 267,                   /* MINUS  */
-    MULTIPLY = 268,                /* MULTIPLY  */
-    DIVIDE = 269,                  /* DIVIDE  */
-    LESS_THAN = 270,               /* LESS_THAN  */
-    LESS_OR_EQUAL = 271,           /* LESS_OR_EQUAL  */
-    GREATER_THAN = 272,            /* GREATER_THAN  */
-    GREATER_OR_EQUAL = 273,        /* GREATER_OR_EQUAL  */
-    EQUALS = 274,                  /* EQUALS  */
-    ASSIGNMENT = 275,              /* ASSIGNMENT  */
-    NOT_EQUALS = 276,              /* NOT_EQUALS  */
-    EOL = 277,                     /* EOL  */
-    COMMA = 278,                   /* COMMA  */
-    LEFT_PARANTHESIS = 279,        /* LEFT_PARANTHESIS  */
-    RIGHT_PARANTHESIS = 280,       /* RIGHT_PARANTHESIS  */
-    LEFT_BRACKET = 281,            /* LEFT_BRACKET  */
-    RIGHT_BRACKET = 282,           /* RIGHT_BRACKET  */
-    LEFT_SQR_BRACKET = 283,        /* LEFT_SQR_BRACKET  */
-    RIGHT_SQR_BRACKET = 284,       /* RIGHT_SQR_BRACKET  */
-    DECLARE = 285,                 /* DECLARE  */
-    VAR = 286,                     /* VAR  */
-    BOOL = 287,                    /* BOOL  */
-    CHAR = 288,                    /* CHAR  */
-    STRING = 289,                  /* STRING  */
-    INT_P = 290,                   /* INT_P  */
-    CHAR_P = 291,                  /* CHAR_P  */
-    REAL_P = 292,                  /* REAL_P  */
-    FUNC = 293,                    /* FUNC  */
-    PROC = 294,                    /* PROC  */
-    NULL_P = 295,                  /* NULL_P  */
-    LOGICAL_P = 296,               /* LOGICAL_P  */
-    AND = 297,                     /* AND  */
-    POWER = 298,                   /* POWER  */
-    NOT = 299,                     /* NOT  */
-    OR = 300,                      /* OR  */
-    LENGTH = 301,                  /* LENGTH  */
-    REAL_VALUE = 302,              /* REAL_VALUE  */
-    REAL = 303,                    /* REAL  */
-    LOGICAL_AND = 304,             /* LOGICAL_AND  */
-    ADDRESS = 305,                 /* ADDRESS  */
-    NL = 306,                      /* NL  */
-    SYMPOL = 307,                  /* SYMPOL  */
-    STRINGVALUE = 308,             /* STRINGVALUE  */
-    ID = 309,                      /* ID  */
-    FUNCID = 310,                  /* FUNCID  */
-    INT_VALUE = 311,               /* INT_VALUE  */
-    BOOL_VALUE = 312,              /* BOOL_VALUE  */
-    NUM = 313                      /* NUM  */
+    BCOMMENT = 258,
+    ECOMMENT = 259,
+    IF = 260,
+    ELSE = 261,
+    INT = 262,
+    RETURN = 263,
+    VOID = 264,
+    WHILE = 265,
+    PLUS = 266,
+    MINUS = 267,
+    MULTIPLY = 268,
+    DIVIDE = 269,
+    LESS_THAN = 270,
+    LESS_OR_EQUAL = 271,
+    GREATER_THAN = 272,
+    GREATER_OR_EQUAL = 273,
+    EQUALS = 274,
+    ASSIGNMENT = 275,
+    NOT_EQUALS = 276,
+    EOL = 277,
+    COMMA = 278,
+    LEFT_PARANTHESIS = 279,
+    RIGHT_PARANTHESIS = 280,
+    LEFT_BRACKET = 281,
+    RIGHT_BRACKET = 282,
+    LEFT_SQR_BRACKET = 283,
+    RIGHT_SQR_BRACKET = 284,
+    DECLARE = 285,
+    VAR = 286,
+    BOOL = 287,
+    CHAR = 288,
+    STRING = 289,
+    INT_P = 290,
+    CHAR_P = 291,
+    REAL_P = 292,
+    FUNC = 293,
+    PROC = 294,
+    NULL_P = 295,
+    LOGICAL_P = 296,
+    AND = 297,
+    POWER = 298,
+    NOT = 299,
+    OR = 300,
+    LENGTH = 301,
+    REAL_VALUE = 302,
+    REAL = 303,
+    LOGICAL_AND = 304,
+    ADDRESS = 305,
+    NL = 306,
+    SYMPOL = 307,
+    STRINGVALUE = 308,
+    ID = 309,
+    FUNCID = 310,
+    INT_VALUE = 311,
+    BOOL_VALUE = 312,
+    NUM = 313
   };
-  typedef enum yytokentype yytoken_kind_t;
 #endif
-/* Token kinds.  */
-#define YYEOF 0
-#define YYerror 256
-#define YYUNDEF 257
+/* Tokens.  */
 #define BCOMMENT 258
 #define ECOMMENT 259
 #define IF 260
@@ -178,13 +169,13 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 146 "lexer.y"
+#line 42 "lexer.y"
 
  
    char *valueToShow;
    struct node* n;
 
-#line 188 "y.tab.h"
+#line 179 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
