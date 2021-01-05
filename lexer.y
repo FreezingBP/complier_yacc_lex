@@ -267,7 +267,7 @@ void freeSymbol(symbol* symbol)
 
 bool compareSymbol(symbol* s1,symbol* s2)
 {
-    if(strcmp(s1->id,s2->id) && strcmp(s1->type,s2->type))
+    if(strcmp(s1->id,s2->id)==0 && strcmp(s1->type,s2->type)==0)
     {
         return 1; 
     }
@@ -276,7 +276,7 @@ bool compareSymbol(symbol* s1,symbol* s2)
 }
 bool compareSymbol_redeclatrion(symbol* s1,symbol* s2)
 {
-    if(strcmp(s1->id,s2->id))
+    if(strcmp(s1->id,s2->id)==0)
     {
         return 0; 
     }
@@ -419,21 +419,30 @@ char* checkCurrentNode(char* token){
 
 void insertVar(node * tree ,symbolTable table){
     struct symbol* entry;
-   entry= initSymbol(tree->node1->node1->token,"VAR","int",0);
-    insert_symbol(entry,table.currentTable);
-    if(entry->id=="main")
-        table.checkMain++;
+   entry= initSymbol(tree->node1->node1->token,"VAR",tree->node2->token,0);
+   
+   insert_symbol(entry,table.currentTable);
+   // if(entry->id=="main")
+      //  table.checkMain++;
     
     
 }
 void checkTree(node* tree,symbolTable table){
-    if(strcmp("vardeclare",tree->token)){
-      //if(strcmp(tree->node2->node1->token,"int")){
-        printf("ok");
-      
-        insertVar(tree,table);
-          
+    if(strcmp("vardeclare",tree->token)==0){
+       insertVar(tree,table);        
 }
+    if(tree->node1)
+        checkTree(tree->node1,table);
+    if(tree->node2)
+        checkTree(tree->node2,table);
+    if(tree->node3)
+        checkTree(tree->node3,table);
+    if(tree->node4)
+        checkTree(tree->node4,table);
+    if(tree->node5)
+        checkTree(tree->node5,table);
+    if(tree->node6)
+        checkTree(tree->node6,table);                                     
 }
 
 
