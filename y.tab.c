@@ -77,10 +77,112 @@
 
 extern symbolTable table;
 
+/*################################ nodes functions #############################33*/
+node *initNodes(char *token,node *node1,node* node2,node* node3,node* node4,node* node5,node* node6);
+node *makenode(char *token); 
+node *makeTree6(char *token,node *node1,node* node2,node* node3,node* node4,node* node5,node* node6);
+node *makeTree5(char *token,node *node1,node* node2,node* node3,node* node4,node* node5);
+node *makeTree4(char *token,node *node1,node* node2,node* node3,node* node4);
+node *makeTree3(char *token,node *node1,node* node2,node* node3);
+node *makeTree2(char *token,node *node1,node* node2);
+node *makeTree1(char *token,node *node1);
+void addChild(node *parent,node *child);
+void printtree(node *tree, int index);
+
+/*############################# node  ##########################*/
+node *initNodes(char *token,node *node1,node* node2,node* node3,node* node4,node* node5,node* node6){
+node *newnode = (node*)malloc(sizeof(node)); 
+char *newstr = (char*)malloc(sizeof(token) + 1); 
+strcpy(newstr,token);
+newnode->node1 = node1;
+newnode->node2 = node2;
+newnode->node3 = node3;
+newnode->node4 = node4;
+newnode->node5 = node5;
+newnode->node6 = node6;
+newnode->token = newstr; 
+return newnode; 
+}
+node *makenode(char *token) {
+return initNodes(token,NULL,NULL,NULL,NULL,NULL,NULL);
+}
+node *makeTree6(char *token,node *node1,node* node2,node* node3,node* node4,node* node5,node* node6){
+    return initNodes(token,node1,node2,node3,node4,node5,node6);
+}
+node *makeTree5(char *token,node *node1,node* node2,node* node3,node* node4,node* node5){
+    return initNodes(token,node1,node2,node3,node4,node5,NULL);
+
+}
+node *makeTree4(char *token,node *node1,node* node2,node* node3,node* node4){
+    return initNodes(token,node1,node2,node3,node4,NULL,NULL);
+
+}
+node *makeTree3(char *token,node *node1,node* node2,node* node3){
+    return initNodes(token,node1,node2,node3,NULL,NULL,NULL);
+
+}
+node *makeTree2(char *token,node *node1,node* node2){
+    return initNodes(token,node1,node2,NULL,NULL,NULL,NULL);
+
+}
+node *makeTree1(char *token,node *node1){
+    return initNodes(token,node1,NULL,NULL,NULL,NULL,NULL);
+
+}
+void addChild(node *parent,node *child){
+    if(parent->node1==NULL){
+        parent->node1=child;
+        return;
+    }
+    if(parent->node2==NULL){
+        parent->node2=child;
+        return;
+    }
+    if(parent->node3==NULL){
+        parent->node3=child;
+        return;}
+    if(parent->node4==NULL){
+        parent->node4=child; 
+        return;
+        }                      
+    if(parent->node5==NULL){
+        parent->node5=child;
+        return;
+         }   
+    if(parent->node6==NULL){
+
+        parent->node6=child;
+        return;
+        }
+}
 
 
 
-#line 84 "y.tab.c"
+
+
+
+void printtree(node *tree, int index) {
+printf("%s\n", tree->token);
+printf("%*s",index,"");
+ if(tree->node1)
+printtree(tree->node1,index+1); 
+if(tree->node2)
+printtree(tree->node2,index+1); 
+if(tree->node3)
+printtree(tree->node3,index+1); 
+if(tree->node4)
+printtree(tree->node4,index+1); 
+if(tree->node5)
+printtree(tree->node5,index+1); 
+if(tree->node6)
+printtree(tree->node6,index+1); 
+}
+
+
+
+
+
+#line 186 "y.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -248,13 +350,13 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 44 "lexer.y"
+#line 146 "lexer.y"
 
  
    char *valueToShow;
    struct node* n;
 
-#line 258 "y.tab.c"
+#line 360 "y.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -750,18 +852,18 @@ static const yytype_int8 yytranslate[] =
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
-static const yytype_uint8 yyrline[] =
+static const yytype_int16 yyrline[] =
 {
-       0,    74,    74,    74,    76,    77,    78,    79,    80,    81,
-      82,    83,    84,    85,    86,    87,    88,    89,    90,    91,
-      92,    93,    94,    95,    96,    96,    97,    97,    98,    99,
-     100,   100,   101,   102,   103,   104,   105,   106,   107,   108,
-     109,   110,   111,   112,   113,   114,   115,   116,   117,   117,
-     118,   119,   120,   121,   122,   123,   123,   123,   124,   124,
-     125,   126,   127,   128,   129,   130,   131,   132,   133,   133,
-     134,   134,   135,   135,   136,   136,   137,   138,   139,   140,
-     140,   141,   142,   143,   144,   144,   145,   149,   150,   151,
-     152,   153,   154,   155,   155
+       0,   176,   176,   176,   178,   179,   180,   181,   182,   183,
+     184,   185,   186,   187,   188,   189,   190,   191,   192,   193,
+     194,   195,   196,   197,   198,   198,   199,   199,   200,   201,
+     202,   202,   203,   204,   205,   206,   207,   208,   209,   210,
+     211,   212,   213,   214,   215,   216,   217,   218,   219,   219,
+     220,   221,   222,   223,   224,   225,   225,   225,   226,   226,
+     227,   228,   229,   230,   231,   232,   233,   234,   235,   235,
+     236,   236,   237,   237,   238,   238,   239,   240,   241,   242,
+     242,   243,   244,   245,   246,   246,   247,   251,   252,   253,
+     254,   255,   256,   257,   257
 };
 #endif
 
@@ -1473,493 +1575,493 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* program: declaration-list  */
-#line 74 "lexer.y"
+#line 176 "lexer.y"
                          {startCode((yyvsp[0].n));}
-#line 1479 "y.tab.c"
-    break;
-
-  case 4: /* declaration-list: %empty  */
-#line 76 "lexer.y"
-                           {(yyval.n)=makenode("");}
-#line 1485 "y.tab.c"
-    break;
-
-  case 5: /* declaration-list: declaration-list options  */
-#line 77 "lexer.y"
-                          {(yyval.n)=makeTree2("",(yyvsp[-1].n),(yyvsp[0].n));}
-#line 1491 "y.tab.c"
-    break;
-
-  case 6: /* declaration-list: declaration  */
-#line 78 "lexer.y"
-            {(yyval.n)=makeTree1("",(yyvsp[0].n));}
-#line 1497 "y.tab.c"
-    break;
-
-  case 7: /* declaration-list: S  */
-#line 79 "lexer.y"
-  {(yyval.n)=makeTree1("",(yyvsp[0].n));}
-#line 1503 "y.tab.c"
-    break;
-
-  case 8: /* declaration-list: iter-statment  */
-#line 80 "lexer.y"
-              {(yyval.n)=makeTree1("",(yyvsp[0].n));}
-#line 1509 "y.tab.c"
-    break;
-
-  case 9: /* declaration: var-declaration  */
-#line 81 "lexer.y"
-                            {(yyval.n)=makeTree1("",(yyvsp[0].n));}
-#line 1515 "y.tab.c"
-    break;
-
-  case 10: /* declaration: func-declaration  */
-#line 82 "lexer.y"
-                {(yyval.n)=makeTree1("",(yyvsp[0].n));}
-#line 1521 "y.tab.c"
-    break;
-
-  case 11: /* declaration: proc-declaration  */
-#line 83 "lexer.y"
-                 {(yyval.n)=makeTree1("",(yyvsp[0].n));}
-#line 1527 "y.tab.c"
-    break;
-
-  case 12: /* declaration: funcall  */
-#line 84 "lexer.y"
-       {(yyval.n)=(yyvsp[0].n);}
-#line 1533 "y.tab.c"
-    break;
-
-  case 13: /* declaration: comment  */
-#line 85 "lexer.y"
-        {(yyval.n)=makeTree1("",(yyvsp[0].n));}
-#line 1539 "y.tab.c"
-    break;
-
-  case 14: /* declaration: '{' declaration-list '}'  */
-#line 86 "lexer.y"
-                        {(yyval.n)=makeTree2("BLOCK",(yyvsp[-1].n),makenode("ENDOFBLOCK"));}
-#line 1545 "y.tab.c"
-    break;
-
-  case 15: /* options: declaration  */
-#line 87 "lexer.y"
-                     {(yyval.n)=makeTree1("",(yyvsp[0].n));}
-#line 1551 "y.tab.c"
-    break;
-
-  case 16: /* options: S  */
-#line 88 "lexer.y"
-  {(yyval.n)=makeTree1("",(yyvsp[0].n));}
-#line 1557 "y.tab.c"
-    break;
-
-  case 17: /* options: comment  */
-#line 89 "lexer.y"
-         {(yyval.n)=makeTree1("",(yyvsp[0].n));}
-#line 1563 "y.tab.c"
-    break;
-
-  case 18: /* options: iter-statment  */
-#line 90 "lexer.y"
-              {(yyval.n)=makeTree1("",(yyvsp[0].n));}
-#line 1569 "y.tab.c"
-    break;
-
-  case 19: /* var-declaration: var-assignment  */
-#line 91 "lexer.y"
-                               {(yyval.n)=makeTree1("var assignment",(yyvsp[0].n));}
-#line 1575 "y.tab.c"
-    break;
-
-  case 20: /* var-declaration: VAR ID more-vars DECLARE data-type EOL  */
-#line 92 "lexer.y"
-                                         {node* t1=makeTree2("id's",makenode((yyvsp[-4].valueToShow)),(yyvsp[-3].n));node* type1 =makeTree1("type",(yyvsp[-1].n));(yyval.n)=makeTree2("vardeclare",t1,type1);}
 #line 1581 "y.tab.c"
     break;
 
-  case 22: /* funcall: ID '(' ')' EOL  */
-#line 94 "lexer.y"
-                       {(yyval.n)=makeTree1("funcCall",makenode((yyvsp[-3].valueToShow)));}
+  case 4: /* declaration-list: %empty  */
+#line 178 "lexer.y"
+                           {(yyval.n)=makenode("");}
 #line 1587 "y.tab.c"
     break;
 
-  case 23: /* funcall: ID ASSIGNMENT ID '(' ')' EOL  */
-#line 95 "lexer.y"
-                            {(yyval.n)=makeTree2("FUNCCALL",makenode((yyvsp[-5].valueToShow)),makenode((yyvsp[-3].valueToShow)));}
+  case 5: /* declaration-list: declaration-list options  */
+#line 179 "lexer.y"
+                          {(yyval.n)=makeTree2("",(yyvsp[-1].n),(yyvsp[0].n));}
 #line 1593 "y.tab.c"
     break;
 
-  case 24: /* funcall: ID '(' funcallpar ')' EOL  */
-#line 96 "lexer.y"
-                          {(yyval.n)=makeTree2("FUNCCALL",makenode((yyvsp[-4].valueToShow)),(yyvsp[-2].n));}
+  case 6: /* declaration-list: declaration  */
+#line 180 "lexer.y"
+            {(yyval.n)=makeTree1("",(yyvsp[0].n));}
 #line 1599 "y.tab.c"
     break;
 
-  case 25: /* funcall: ID ASSIGNMENT ID '(' funcallpar ')' EOL  */
-#line 96 "lexer.y"
-                                                                                                              {(yyval.n)=makeTree3("funcCall",makenode((yyvsp[-6].valueToShow)),makenode((yyvsp[-4].valueToShow)),(yyvsp[-2].n));}
+  case 7: /* declaration-list: S  */
+#line 181 "lexer.y"
+  {(yyval.n)=makeTree1("",(yyvsp[0].n));}
 #line 1605 "y.tab.c"
     break;
 
-  case 26: /* parvalue: ID  */
-#line 97 "lexer.y"
-             {(yyval.n)=makenode((yyvsp[0].valueToShow));}
+  case 8: /* declaration-list: iter-statment  */
+#line 182 "lexer.y"
+              {(yyval.n)=makeTree1("",(yyvsp[0].n));}
 #line 1611 "y.tab.c"
     break;
 
-  case 27: /* parvalue: NUM  */
-#line 97 "lexer.y"
-                                    {(yyval.n)=makenode((yyvsp[0].valueToShow));}
+  case 9: /* declaration: var-declaration  */
+#line 183 "lexer.y"
+                            {(yyval.n)=makeTree1("",(yyvsp[0].n));}
 #line 1617 "y.tab.c"
     break;
 
-  case 28: /* funcallpar: parvalue COMMA funcallpar  */
-#line 98 "lexer.y"
-                                       {(yyval.n)=makeTree2("parameter list",(yyvsp[-2].n),(yyvsp[0].n));}
+  case 10: /* declaration: func-declaration  */
+#line 184 "lexer.y"
+                {(yyval.n)=makeTree1("",(yyvsp[0].n));}
 #line 1623 "y.tab.c"
     break;
 
-  case 29: /* funcallpar: parvalue  */
-#line 99 "lexer.y"
-          {(yyval.n)=(yyvsp[0].n);}
+  case 11: /* declaration: proc-declaration  */
+#line 185 "lexer.y"
+                 {(yyval.n)=makeTree1("",(yyvsp[0].n));}
 #line 1629 "y.tab.c"
     break;
 
-  case 30: /* data-type: INT  */
-#line 100 "lexer.y"
-              {(yyval.n)=makenode("int");}
+  case 12: /* declaration: funcall  */
+#line 186 "lexer.y"
+       {(yyval.n)=(yyvsp[0].n);}
 #line 1635 "y.tab.c"
     break;
 
-  case 31: /* data-type: REAL  */
-#line 100 "lexer.y"
-                                          {(yyval.n)=makenode("real");}
+  case 13: /* declaration: comment  */
+#line 187 "lexer.y"
+        {(yyval.n)=makeTree1("",(yyvsp[0].n));}
 #line 1641 "y.tab.c"
     break;
 
-  case 32: /* data-type: CHAR  */
-#line 101 "lexer.y"
-     {(yyval.n)=makenode("char");}
+  case 14: /* declaration: '{' declaration-list '}'  */
+#line 188 "lexer.y"
+                        {(yyval.n)=makeTree2("BLOCK",(yyvsp[-1].n),makenode("ENDOFBLOCK"));}
 #line 1647 "y.tab.c"
     break;
 
-  case 33: /* data-type: BOOL  */
-#line 102 "lexer.y"
-    {(yyval.n)=makenode("bool");}
+  case 15: /* options: declaration  */
+#line 189 "lexer.y"
+                     {(yyval.n)=makeTree1("",(yyvsp[0].n));}
 #line 1653 "y.tab.c"
     break;
 
-  case 34: /* data-type: INT_P  */
-#line 103 "lexer.y"
-     {(yyval.n)=makenode("int pointer");}
+  case 16: /* options: S  */
+#line 190 "lexer.y"
+  {(yyval.n)=makeTree1("",(yyvsp[0].n));}
 #line 1659 "y.tab.c"
     break;
 
-  case 35: /* data-type: REAL_P  */
-#line 104 "lexer.y"
-       {(yyval.n)=makenode("real pointer");}
+  case 17: /* options: comment  */
+#line 191 "lexer.y"
+         {(yyval.n)=makeTree1("",(yyvsp[0].n));}
 #line 1665 "y.tab.c"
     break;
 
-  case 36: /* data-type: CHAR_P  */
-#line 105 "lexer.y"
-      {(yyval.n)=makenode("char pointer");}
+  case 18: /* options: iter-statment  */
+#line 192 "lexer.y"
+              {(yyval.n)=makeTree1("",(yyvsp[0].n));}
 #line 1671 "y.tab.c"
     break;
 
-  case 37: /* func-declaration: FUNC ID '(' parameter_list ')' RETURN data-type '{' body RETURN return-value '}' declaration-list  */
-#line 106 "lexer.y"
-                                                                                                                    { (yyval.n)=makeTree5("func",makenode((yyvsp[-11].valueToShow)),(yyvsp[-9].n),(yyvsp[-6].n),makeTree2("BODY",(yyvsp[-4].n),(yyvsp[-2].n)),(yyvsp[0].n));}
+  case 19: /* var-declaration: var-assignment  */
+#line 193 "lexer.y"
+                               {(yyval.n)=makeTree1("var assignment",(yyvsp[0].n));}
 #line 1677 "y.tab.c"
     break;
 
-  case 38: /* func-declaration: FUNC ID '(' parameter_list ')' RETURN data-type '{' RETURN return-value '}' declaration-list  */
-#line 107 "lexer.y"
-                                                                                              { (yyval.n)=makeTree5("func",makenode((yyvsp[-10].valueToShow)),(yyvsp[-8].n),(yyvsp[-5].n),(yyvsp[-2].n),(yyvsp[0].n));}
+  case 20: /* var-declaration: VAR ID more-vars DECLARE data-type EOL  */
+#line 194 "lexer.y"
+                                         {node* t1=makeTree2("id's",makenode((yyvsp[-4].valueToShow)),(yyvsp[-3].n));node* type1 =makeTree1("type",(yyvsp[-1].n));(yyval.n)=makeTree2("vardeclare",t1,type1);}
 #line 1683 "y.tab.c"
     break;
 
-  case 39: /* proc-declaration: PROC ID '(' parameter_list ')' '{' body '}' declaration-list  */
-#line 108 "lexer.y"
-                                                                                { (yyval.n)=makeTree4("PROC",makenode((yyvsp[-7].valueToShow)),(yyvsp[-5].n),(yyvsp[-2].n),(yyvsp[0].n));}
+  case 22: /* funcall: ID '(' ')' EOL  */
+#line 196 "lexer.y"
+                       {(yyval.n)=makeTree1("funcCall",makenode((yyvsp[-3].valueToShow)));}
 #line 1689 "y.tab.c"
     break;
 
-  case 40: /* iter-statment: WHILE '(' expr ')' '{' body '}'  */
-#line 109 "lexer.y"
-                                                {(yyval.n)=makeTree2("while",(yyvsp[-4].n),(yyvsp[-1].n));}
+  case 23: /* funcall: ID ASSIGNMENT ID '(' ')' EOL  */
+#line 197 "lexer.y"
+                            {(yyval.n)=makeTree2("FUNCCALL",makenode((yyvsp[-5].valueToShow)),makenode((yyvsp[-3].valueToShow)));}
 #line 1695 "y.tab.c"
     break;
 
-  case 42: /* more-vars: more-vars COMMA ID  */
-#line 111 "lexer.y"
-                              {(yyval.n)=makeTree1((yyvsp[-2].n),(yyvsp[0].valueToShow));}
+  case 24: /* funcall: ID '(' funcallpar ')' EOL  */
+#line 198 "lexer.y"
+                          {(yyval.n)=makeTree2("FUNCCALL",makenode((yyvsp[-4].valueToShow)),(yyvsp[-2].n));}
 #line 1701 "y.tab.c"
     break;
 
-  case 43: /* more-vars: COMMA ID  */
-#line 112 "lexer.y"
-         {(yyval.n)=makenode((yyvsp[0].valueToShow));}
+  case 25: /* funcall: ID ASSIGNMENT ID '(' funcallpar ')' EOL  */
+#line 198 "lexer.y"
+                                                                                                              {(yyval.n)=makeTree3("funcCall",makenode((yyvsp[-6].valueToShow)),makenode((yyvsp[-4].valueToShow)),(yyvsp[-2].n));}
 #line 1707 "y.tab.c"
     break;
 
-  case 44: /* more-vars: %empty  */
-#line 113 "lexer.y"
-       {(yyval.n)=makenode("");}
+  case 26: /* parvalue: ID  */
+#line 199 "lexer.y"
+             {(yyval.n)=makenode((yyvsp[0].valueToShow));}
 #line 1713 "y.tab.c"
     break;
 
-  case 45: /* var-assignment: ID ASSIGNMENT val EOL  */
-#line 114 "lexer.y"
-                                       {(yyval.n)=makeTree2("=",makenode((yyvsp[-3].valueToShow)),(yyvsp[-1].n));}
+  case 27: /* parvalue: NUM  */
+#line 199 "lexer.y"
+                                    {(yyval.n)=makenode((yyvsp[0].valueToShow));}
 #line 1719 "y.tab.c"
     break;
 
-  case 46: /* var-assignment: ID ASSIGNMENT more-val EOL  */
-#line 115 "lexer.y"
-                           {(yyval.n)=makeTree2("=",makenode((yyvsp[-3].valueToShow)),(yyvsp[-1].n));}
+  case 28: /* funcallpar: parvalue COMMA funcallpar  */
+#line 200 "lexer.y"
+                                       {(yyval.n)=makeTree2("parameter list",(yyvsp[-2].n),(yyvsp[0].n));}
 #line 1725 "y.tab.c"
     break;
 
-  case 47: /* more-val: val opperators val  */
-#line 116 "lexer.y"
-                            {node* opar=(yyvsp[-1].n); (yyval.n)=makeTree1("",makeTree2(opar->token,(yyvsp[-2].n),(yyvsp[0].n)));}
+  case 29: /* funcallpar: parvalue  */
+#line 201 "lexer.y"
+          {(yyval.n)=(yyvsp[0].n);}
 #line 1731 "y.tab.c"
     break;
 
-  case 48: /* more-val: val opperators more-val  */
-#line 117 "lexer.y"
-                          {node* opar1=(yyvsp[-1].n); ;(yyval.n)=makeTree2(opar1->token,(yyvsp[-2].n),(yyvsp[0].n));}
+  case 30: /* data-type: INT  */
+#line 202 "lexer.y"
+              {(yyval.n)=makenode("int");}
 #line 1737 "y.tab.c"
     break;
 
-  case 50: /* val: ID  */
-#line 118 "lexer.y"
-       {(yyval.n)=makenode((yyvsp[0].valueToShow));}
+  case 31: /* data-type: REAL  */
+#line 202 "lexer.y"
+                                          {(yyval.n)=makenode("real");}
 #line 1743 "y.tab.c"
     break;
 
-  case 51: /* val: NUM  */
-#line 119 "lexer.y"
-    {(yyval.n)=makenode((yyvsp[0].valueToShow));}
+  case 32: /* data-type: CHAR  */
+#line 203 "lexer.y"
+     {(yyval.n)=makenode("char");}
 #line 1749 "y.tab.c"
     break;
 
-  case 52: /* val: ADDRESS ID  */
-#line 120 "lexer.y"
-           {(yyval.n)=makenode((yyvsp[0].valueToShow));}
+  case 33: /* data-type: BOOL  */
+#line 204 "lexer.y"
+    {(yyval.n)=makenode("bool");}
 #line 1755 "y.tab.c"
     break;
 
-  case 54: /* val: STRINGVALUE  */
-#line 122 "lexer.y"
-            {(yyval.n)=makenode((yyvsp[0].valueToShow));}
+  case 34: /* data-type: INT_P  */
+#line 205 "lexer.y"
+     {(yyval.n)=makenode("int pointer");}
 #line 1761 "y.tab.c"
     break;
 
-  case 55: /* opperators: mulop  */
-#line 123 "lexer.y"
-                 {(yyval.n)=(yyvsp[0].n);}
+  case 35: /* data-type: REAL_P  */
+#line 206 "lexer.y"
+       {(yyval.n)=makenode("real pointer");}
 #line 1767 "y.tab.c"
     break;
 
-  case 56: /* opperators: addop  */
-#line 123 "lexer.y"
-                                 {(yyval.n)=(yyvsp[0].n);}
+  case 36: /* data-type: CHAR_P  */
+#line 207 "lexer.y"
+      {(yyval.n)=makenode("char pointer");}
 #line 1773 "y.tab.c"
     break;
 
-  case 57: /* opperators: relop  */
-#line 123 "lexer.y"
-                                                {(yyval.n)=(yyvsp[0].n);}
+  case 37: /* func-declaration: FUNC ID '(' parameter_list ')' RETURN data-type '{' body RETURN return-value '}' declaration-list  */
+#line 208 "lexer.y"
+                                                                                                                    { (yyval.n)=makeTree5("func",makenode((yyvsp[-11].valueToShow)),(yyvsp[-9].n),(yyvsp[-6].n),makeTree2("BODY",(yyvsp[-4].n),(yyvsp[-2].n)),(yyvsp[0].n));}
 #line 1779 "y.tab.c"
     break;
 
-  case 59: /* expr: simple-expression  */
-#line 124 "lexer.y"
-                                                             {(yyval.n)=(yyvsp[0].n);}
+  case 38: /* func-declaration: FUNC ID '(' parameter_list ')' RETURN data-type '{' RETURN return-value '}' declaration-list  */
+#line 209 "lexer.y"
+                                                                                              { (yyval.n)=makeTree5("func",makenode((yyvsp[-10].valueToShow)),(yyvsp[-8].n),(yyvsp[-5].n),(yyvsp[-2].n),(yyvsp[0].n));}
 #line 1785 "y.tab.c"
     break;
 
-  case 60: /* simple-expression: additive-expression relop additive-expression  */
-#line 125 "lexer.y"
-                                                                {node* t=(yyvsp[-1].n);t->node1=(yyvsp[-2].n);t->node2=(yyvsp[0].n);(yyval.n)=t;}
+  case 39: /* proc-declaration: PROC ID '(' parameter_list ')' '{' body '}' declaration-list  */
+#line 210 "lexer.y"
+                                                                                { (yyval.n)=makeTree4("PROC",makenode((yyvsp[-7].valueToShow)),(yyvsp[-5].n),(yyvsp[-2].n),(yyvsp[0].n));}
 #line 1791 "y.tab.c"
     break;
 
-  case 62: /* relop: LESS_THAN  */
-#line 127 "lexer.y"
-                {(yyval.n)=makenode("<");}
+  case 40: /* iter-statment: WHILE '(' expr ')' '{' body '}'  */
+#line 211 "lexer.y"
+                                                {(yyval.n)=makeTree2("while",(yyvsp[-4].n),(yyvsp[-1].n));}
 #line 1797 "y.tab.c"
     break;
 
-  case 63: /* relop: LESS_OR_EQUAL  */
-#line 128 "lexer.y"
-             {(yyval.n)=makenode("<=");}
+  case 42: /* more-vars: more-vars COMMA ID  */
+#line 213 "lexer.y"
+                              {(yyval.n)=makeTree1((yyvsp[-2].n),(yyvsp[0].valueToShow));}
 #line 1803 "y.tab.c"
     break;
 
-  case 64: /* relop: GREATER_THAN  */
-#line 129 "lexer.y"
-             {(yyval.n)=makenode(">");}
+  case 43: /* more-vars: COMMA ID  */
+#line 214 "lexer.y"
+         {(yyval.n)=makenode((yyvsp[0].valueToShow));}
 #line 1809 "y.tab.c"
     break;
 
-  case 65: /* relop: GREATER_OR_EQUAL  */
-#line 130 "lexer.y"
-                 {(yyval.n)=makenode("=>");}
+  case 44: /* more-vars: %empty  */
+#line 215 "lexer.y"
+       {(yyval.n)=makenode("");}
 #line 1815 "y.tab.c"
     break;
 
-  case 66: /* relop: EQUALS  */
-#line 131 "lexer.y"
-       {(yyval.n)=makenode("==");}
+  case 45: /* var-assignment: ID ASSIGNMENT val EOL  */
+#line 216 "lexer.y"
+                                       {(yyval.n)=makeTree2("=",makenode((yyvsp[-3].valueToShow)),(yyvsp[-1].n));}
 #line 1821 "y.tab.c"
     break;
 
-  case 67: /* relop: NOT_EQUALS  */
-#line 132 "lexer.y"
-          {(yyval.n)=makenode("!=");}
+  case 46: /* var-assignment: ID ASSIGNMENT more-val EOL  */
+#line 217 "lexer.y"
+                           {(yyval.n)=makeTree2("=",makenode((yyvsp[-3].valueToShow)),(yyvsp[-1].n));}
 #line 1827 "y.tab.c"
     break;
 
-  case 69: /* additive-expression: term  */
-#line 133 "lexer.y"
-                                                          {(yyval.n)=(yyvsp[0].n);}
+  case 47: /* more-val: val opperators val  */
+#line 218 "lexer.y"
+                            {node* opar=(yyvsp[-1].n); (yyval.n)=makeTree1("",makeTree2(opar->token,(yyvsp[-2].n),(yyvsp[0].n)));}
 #line 1833 "y.tab.c"
     break;
 
-  case 70: /* addop: PLUS  */
-#line 134 "lexer.y"
-           {(yyval.n)=makenode("+");}
+  case 48: /* more-val: val opperators more-val  */
+#line 219 "lexer.y"
+                          {node* opar1=(yyvsp[-1].n); ;(yyval.n)=makeTree2(opar1->token,(yyvsp[-2].n),(yyvsp[0].n));}
 #line 1839 "y.tab.c"
     break;
 
-  case 71: /* addop: MINUS  */
-#line 134 "lexer.y"
-                                      {(yyval.n)=makenode("-");}
+  case 50: /* val: ID  */
+#line 220 "lexer.y"
+       {(yyval.n)=makenode((yyvsp[0].valueToShow));}
 #line 1845 "y.tab.c"
     break;
 
-  case 73: /* term: factor  */
-#line 135 "lexer.y"
-                                {(yyval.n)=makeTree1("",(yyvsp[0].n));}
+  case 51: /* val: NUM  */
+#line 221 "lexer.y"
+    {(yyval.n)=makenode((yyvsp[0].valueToShow));}
 #line 1851 "y.tab.c"
     break;
 
-  case 74: /* mulop: MULTIPLY  */
-#line 136 "lexer.y"
-               {(yyval.n)=makenode("*");}
+  case 52: /* val: ADDRESS ID  */
+#line 222 "lexer.y"
+           {(yyval.n)=makenode((yyvsp[0].valueToShow));}
 #line 1857 "y.tab.c"
     break;
 
-  case 75: /* mulop: DIVIDE  */
-#line 136 "lexer.y"
-                                           {(yyval.n)=makenode("/");}
+  case 54: /* val: STRINGVALUE  */
+#line 224 "lexer.y"
+            {(yyval.n)=makenode((yyvsp[0].valueToShow));}
 #line 1863 "y.tab.c"
     break;
 
-  case 77: /* factor: ID  */
-#line 138 "lexer.y"
-    {(yyval.n)=makenode((yyvsp[0].valueToShow));}
+  case 55: /* opperators: mulop  */
+#line 225 "lexer.y"
+                 {(yyval.n)=(yyvsp[0].n);}
 #line 1869 "y.tab.c"
     break;
 
-  case 78: /* factor: NUM  */
-#line 139 "lexer.y"
-      {(yyval.n)=makenode((yyvsp[0].valueToShow));}
+  case 56: /* opperators: addop  */
+#line 225 "lexer.y"
+                                 {(yyval.n)=(yyvsp[0].n);}
 #line 1875 "y.tab.c"
     break;
 
-  case 81: /* S: ST  */
-#line 141 "lexer.y"
-     { (yyval.n)=(yyvsp[0].n);}
+  case 57: /* opperators: relop  */
+#line 225 "lexer.y"
+                                                {(yyval.n)=(yyvsp[0].n);}
 #line 1881 "y.tab.c"
     break;
 
-  case 82: /* ST: IF '(' expr ')' '{' ST1 '}' ELSE '{' ST1 '}'  */
-#line 142 "lexer.y"
-                                                {(yyval.n)=makeTree3("if else",(yyvsp[-8].n),(yyvsp[-5].n),(yyvsp[-1].n));}
+  case 59: /* expr: simple-expression  */
+#line 226 "lexer.y"
+                                                             {(yyval.n)=(yyvsp[0].n);}
 #line 1887 "y.tab.c"
     break;
 
-  case 83: /* ST: IF '(' expr ')' '{' ST1 '}'  */
-#line 143 "lexer.y"
-                          {(yyval.n)=makeTree2("if else",(yyvsp[-4].n),makeTree1("",(yyvsp[-1].n)));}
+  case 60: /* simple-expression: additive-expression relop additive-expression  */
+#line 227 "lexer.y"
+                                                                {node* t=(yyvsp[-1].n);t->node1=(yyvsp[-2].n);t->node2=(yyvsp[0].n);(yyval.n)=t;}
 #line 1893 "y.tab.c"
     break;
 
-  case 84: /* ST1: body  */
-#line 144 "lexer.y"
-         {(yyval.n)=(yyvsp[0].n);}
+  case 62: /* relop: LESS_THAN  */
+#line 229 "lexer.y"
+                {(yyval.n)=makenode("<");}
 #line 1899 "y.tab.c"
     break;
 
-  case 85: /* ST1: ST  */
-#line 144 "lexer.y"
-                    {(yyval.n)=(yyvsp[0].n);}
+  case 63: /* relop: LESS_OR_EQUAL  */
+#line 230 "lexer.y"
+             {(yyval.n)=makenode("<=");}
 #line 1905 "y.tab.c"
     break;
 
-  case 86: /* comment: BCOMMENT ID ECOMMENT  */
-#line 145 "lexer.y"
-                              {(yyval.n)=makeTree3("comment",makenode("{"),makenode("}"),makenode((yyvsp[-1].valueToShow)));}
+  case 64: /* relop: GREATER_THAN  */
+#line 231 "lexer.y"
+             {(yyval.n)=makenode(">");}
 #line 1911 "y.tab.c"
     break;
 
-  case 87: /* parameter_list: ID more-vars DECLARE data-type EOL parameter_list  */
-#line 149 "lexer.y"
-                                                                   {(yyval.n)=makeTree4("args",(yyvsp[-2].n),makenode((yyvsp[-5].valueToShow)),(yyvsp[-4].n),(yyvsp[0].n));}
+  case 65: /* relop: GREATER_OR_EQUAL  */
+#line 232 "lexer.y"
+                 {(yyval.n)=makenode("=>");}
 #line 1917 "y.tab.c"
     break;
 
-  case 88: /* parameter_list: ID more-vars DECLARE data-type  */
-#line 150 "lexer.y"
-                              {(yyval.n)=makeTree3("args",(yyvsp[0].n),makenode((yyvsp[-3].valueToShow)),(yyvsp[-2].n));}
+  case 66: /* relop: EQUALS  */
+#line 233 "lexer.y"
+       {(yyval.n)=makenode("==");}
 #line 1923 "y.tab.c"
     break;
 
-  case 89: /* parameter_list: %empty  */
-#line 151 "lexer.y"
-           {(yyval.n)=makenode("NONE");}
+  case 67: /* relop: NOT_EQUALS  */
+#line 234 "lexer.y"
+          {(yyval.n)=makenode("!=");}
 #line 1929 "y.tab.c"
     break;
 
-  case 90: /* return-value: BOOL_VALUE EOL  */
-#line 152 "lexer.y"
-                            {(yyval.n)=makeTree1("return",makenode((yyvsp[-1].valueToShow)));}
+  case 69: /* additive-expression: term  */
+#line 235 "lexer.y"
+                                                          {(yyval.n)=(yyvsp[0].n);}
 #line 1935 "y.tab.c"
     break;
 
-  case 91: /* return-value: NUM EOL  */
-#line 153 "lexer.y"
-        {(yyval.n)=makeTree1("return",makenode((yyvsp[-1].valueToShow)));}
+  case 70: /* addop: PLUS  */
+#line 236 "lexer.y"
+           {(yyval.n)=makenode("+");}
 #line 1941 "y.tab.c"
     break;
 
-  case 92: /* return-value: ID EOL  */
-#line 154 "lexer.y"
-       {(yyval.n)=makeTree1("return",makenode((yyvsp[-1].valueToShow)));}
+  case 71: /* addop: MINUS  */
+#line 236 "lexer.y"
+                                      {(yyval.n)=makenode("-");}
 #line 1947 "y.tab.c"
     break;
 
-  case 93: /* body: %empty  */
-#line 155 "lexer.y"
-              {(yyval.n)=makenode("empty");}
+  case 73: /* term: factor  */
+#line 237 "lexer.y"
+                                {(yyval.n)=makeTree1("",(yyvsp[0].n));}
 #line 1953 "y.tab.c"
     break;
 
-  case 94: /* body: declaration-list  */
-#line 155 "lexer.y"
-                                                        {(yyval.n)=(yyvsp[0].n);}
+  case 74: /* mulop: MULTIPLY  */
+#line 238 "lexer.y"
+               {(yyval.n)=makenode("*");}
 #line 1959 "y.tab.c"
     break;
 
+  case 75: /* mulop: DIVIDE  */
+#line 238 "lexer.y"
+                                           {(yyval.n)=makenode("/");}
+#line 1965 "y.tab.c"
+    break;
 
-#line 1963 "y.tab.c"
+  case 77: /* factor: ID  */
+#line 240 "lexer.y"
+    {(yyval.n)=makenode((yyvsp[0].valueToShow));}
+#line 1971 "y.tab.c"
+    break;
+
+  case 78: /* factor: NUM  */
+#line 241 "lexer.y"
+      {(yyval.n)=makenode((yyvsp[0].valueToShow));}
+#line 1977 "y.tab.c"
+    break;
+
+  case 81: /* S: ST  */
+#line 243 "lexer.y"
+     { (yyval.n)=(yyvsp[0].n);}
+#line 1983 "y.tab.c"
+    break;
+
+  case 82: /* ST: IF '(' expr ')' '{' ST1 '}' ELSE '{' ST1 '}'  */
+#line 244 "lexer.y"
+                                                {(yyval.n)=makeTree3("if else",(yyvsp[-8].n),(yyvsp[-5].n),(yyvsp[-1].n));}
+#line 1989 "y.tab.c"
+    break;
+
+  case 83: /* ST: IF '(' expr ')' '{' ST1 '}'  */
+#line 245 "lexer.y"
+                          {(yyval.n)=makeTree2("if else",(yyvsp[-4].n),makeTree1("",(yyvsp[-1].n)));}
+#line 1995 "y.tab.c"
+    break;
+
+  case 84: /* ST1: body  */
+#line 246 "lexer.y"
+         {(yyval.n)=(yyvsp[0].n);}
+#line 2001 "y.tab.c"
+    break;
+
+  case 85: /* ST1: ST  */
+#line 246 "lexer.y"
+                    {(yyval.n)=(yyvsp[0].n);}
+#line 2007 "y.tab.c"
+    break;
+
+  case 86: /* comment: BCOMMENT ID ECOMMENT  */
+#line 247 "lexer.y"
+                              {(yyval.n)=makeTree3("comment",makenode("{"),makenode("}"),makenode((yyvsp[-1].valueToShow)));}
+#line 2013 "y.tab.c"
+    break;
+
+  case 87: /* parameter_list: ID more-vars DECLARE data-type EOL parameter_list  */
+#line 251 "lexer.y"
+                                                                   {(yyval.n)=makeTree4("args",(yyvsp[-2].n),makenode((yyvsp[-5].valueToShow)),(yyvsp[-4].n),(yyvsp[0].n));}
+#line 2019 "y.tab.c"
+    break;
+
+  case 88: /* parameter_list: ID more-vars DECLARE data-type  */
+#line 252 "lexer.y"
+                              {(yyval.n)=makeTree3("args",(yyvsp[0].n),makenode((yyvsp[-3].valueToShow)),(yyvsp[-2].n));}
+#line 2025 "y.tab.c"
+    break;
+
+  case 89: /* parameter_list: %empty  */
+#line 253 "lexer.y"
+           {(yyval.n)=makenode("NONE");}
+#line 2031 "y.tab.c"
+    break;
+
+  case 90: /* return-value: BOOL_VALUE EOL  */
+#line 254 "lexer.y"
+                            {(yyval.n)=makeTree1("return",makenode((yyvsp[-1].valueToShow)));}
+#line 2037 "y.tab.c"
+    break;
+
+  case 91: /* return-value: NUM EOL  */
+#line 255 "lexer.y"
+        {(yyval.n)=makeTree1("return",makenode((yyvsp[-1].valueToShow)));}
+#line 2043 "y.tab.c"
+    break;
+
+  case 92: /* return-value: ID EOL  */
+#line 256 "lexer.y"
+       {(yyval.n)=makeTree1("return",makenode((yyvsp[-1].valueToShow)));}
+#line 2049 "y.tab.c"
+    break;
+
+  case 93: /* body: %empty  */
+#line 257 "lexer.y"
+              {(yyval.n)=makenode("empty");}
+#line 2055 "y.tab.c"
+    break;
+
+  case 94: /* body: declaration-list  */
+#line 257 "lexer.y"
+                                                        {(yyval.n)=(yyvsp[0].n);}
+#line 2061 "y.tab.c"
+    break;
+
+
+#line 2065 "y.tab.c"
 
       default: break;
     }
@@ -2153,7 +2255,7 @@ yyreturn:
   return yyresult;
 }
 
-#line 157 "lexer.y"
+#line 259 "lexer.y"
 
 int main(){
   return yyparse();

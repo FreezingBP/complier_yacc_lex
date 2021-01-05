@@ -45,95 +45,6 @@ bool compareSymbol_redeclatrion(symbol* s1,symbol* s2)
    return 1;    
 }
 
-/*############################# node  ##########################*/
-node *initNodes(char *token,node *node1,node* node2,node* node3,node* node4,node* node5,node* node6){
-node *newnode = (node*)malloc(sizeof(node)); 
-char *newstr = (char*)malloc(sizeof(token) + 1); 
-strcpy(newstr,token);
-newnode->node1 = node1;
-newnode->node2 = node2;
-newnode->node3 = node3;
-newnode->node4 = node4;
-newnode->node5 = node5;
-newnode->node6 = node6;
-newnode->token = newstr; 
-return newnode; 
-}
-node *makenode(char *token) {
-return initNodes(token,NULL,NULL,NULL,NULL,NULL,NULL);
-}
-node *makeTree6(char *token,node *node1,node* node2,node* node3,node* node4,node* node5,node* node6){
-    return initNodes(token,node1,node2,node3,node4,node5,node6);
-}
-node *makeTree5(char *token,node *node1,node* node2,node* node3,node* node4,node* node5){
-    return initNodes(token,node1,node2,node3,node4,node5,NULL);
-
-}
-node *makeTree4(char *token,node *node1,node* node2,node* node3,node* node4){
-    return initNodes(token,node1,node2,node3,node4,NULL,NULL);
-
-}
-node *makeTree3(char *token,node *node1,node* node2,node* node3){
-    return initNodes(token,node1,node2,node3,NULL,NULL,NULL);
-
-}
-node *makeTree2(char *token,node *node1,node* node2){
-    return initNodes(token,node1,node2,NULL,NULL,NULL,NULL);
-
-}
-node *makeTree1(char *token,node *node1){
-    return initNodes(token,node1,NULL,NULL,NULL,NULL,NULL);
-
-}
-void addChild(node *parent,node *child){
-    if(parent->node1==NULL){
-        parent->node1=child;
-        return;
-    }
-    if(parent->node2==NULL){
-        parent->node2=child;
-        return;
-    }
-    if(parent->node3==NULL){
-        parent->node3=child;
-        return;}
-    if(parent->node4==NULL){
-        parent->node4=child; 
-        return;
-        }                      
-    if(parent->node5==NULL){
-        parent->node5=child;
-        return;
-         }   
-    if(parent->node6==NULL){
-
-        parent->node6=child;
-        return;
-        }
-}
-
-
-
-
-
-
-void printtree(node *tree, int index) {
-printf("%s\n", tree->token);
-printf("%*s",index,"");
- if(tree->node1)
-printtree(tree->node1,index+1); 
-if(tree->node2)
-printtree(tree->node2,index+1); 
-if(tree->node3)
-printtree(tree->node3,index+1); 
-if(tree->node4)
-printtree(tree->node4,index+1); 
-if(tree->node5)
-printtree(tree->node5,index+1); 
-if(tree->node6)
-printtree(tree->node6,index+1); 
-}
-
 
 /*############################## symbol list ##########################*/
 
@@ -242,11 +153,6 @@ void insert_symbol(symbol* symbol , symbolList* symbolList1)
 }
 
 
-void startCode(node *tree){
-    initTable();
-    checkTree(tree); 
-
-    }
 
 
 void insert(symbolTable* sList,symbol* s){
