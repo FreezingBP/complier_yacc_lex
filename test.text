@@ -1,5 +1,2 @@
-func main() return int{
-    return 1;
-}
-var x:bool ;
-x= true;
+var x:int;
+x=t;
