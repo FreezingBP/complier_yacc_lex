@@ -1,1 +1,6 @@
-var x : int;
+func main() return int{
+    return 1;
+}
+func main() return int{
+    return 1;
+}

@@ -71,13 +71,11 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include"lex.yy.c"
-#include"symbol.h"
+#include "SymbolTable.h"
+struct symbolTable table;
 
 
-
-
-
-#line 81 "y.tab.c"
+#line 79 "y.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -245,13 +243,13 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 42 "lexer.y"
+#line 40 "lexer.y"
 
  
    char *valueToShow;
    struct node* n;
 
-#line 255 "y.tab.c"
+#line 253 "y.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -632,16 +630,16 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    72,    72,    72,    74,    75,    76,    77,    78,    79,
-      80,    81,    82,    83,    84,    85,    86,    87,    88,    89,
-      90,    91,    92,    93,    94,    94,    95,    95,    96,    97,
-      98,    98,    99,   100,   101,   102,   103,   104,   105,   106,
-     107,   108,   109,   110,   111,   112,   113,   114,   115,   115,
-     116,   117,   118,   119,   120,   121,   121,   121,   122,   122,
-     123,   124,   125,   126,   127,   128,   129,   130,   131,   131,
-     132,   132,   133,   133,   134,   134,   135,   136,   137,   138,
-     138,   139,   140,   141,   142,   142,   143,   147,   148,   149,
-     150,   151,   152,   153,   153
+       0,    70,    70,    70,    72,    73,    74,    75,    76,    77,
+      78,    79,    80,    81,    82,    83,    84,    85,    86,    87,
+      88,    89,    90,    91,    92,    92,    93,    93,    94,    95,
+      96,    96,    97,    98,    99,   100,   101,   102,   103,   104,
+     105,   106,   107,   108,   109,   110,   111,   112,   113,   113,
+     114,   115,   116,   117,   118,   119,   119,   119,   120,   120,
+     121,   122,   123,   124,   125,   126,   127,   128,   129,   129,
+     130,   130,   131,   131,   132,   132,   133,   134,   135,   136,
+     136,   137,   138,   139,   140,   140,   141,   145,   146,   147,
+     148,   149,   150,   151,   151
 };
 #endif
 
@@ -1567,493 +1565,493 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 72 "lexer.y"
-                         {  symbolTable table;  printtree((yyvsp[0].n),0);startCode((yyvsp[0].n),table);}
-#line 1573 "y.tab.c"
+#line 70 "lexer.y"
+                         {   printtree((yyvsp[0].n),0);startCode((yyvsp[0].n),&table);}
+#line 1571 "y.tab.c"
     break;
 
   case 4:
-#line 74 "lexer.y"
+#line 72 "lexer.y"
                            {(yyval.n)=makenode("");}
-#line 1579 "y.tab.c"
+#line 1577 "y.tab.c"
     break;
 
   case 5:
-#line 75 "lexer.y"
+#line 73 "lexer.y"
                           {(yyval.n)=makeTree2("",(yyvsp[-1].n),(yyvsp[0].n));}
-#line 1585 "y.tab.c"
+#line 1583 "y.tab.c"
     break;
 
   case 6:
-#line 76 "lexer.y"
+#line 74 "lexer.y"
             {(yyval.n)=makeTree1("",(yyvsp[0].n));}
-#line 1591 "y.tab.c"
+#line 1589 "y.tab.c"
     break;
 
   case 7:
-#line 77 "lexer.y"
+#line 75 "lexer.y"
   {(yyval.n)=makeTree1("",(yyvsp[0].n));}
-#line 1597 "y.tab.c"
+#line 1595 "y.tab.c"
     break;
 
   case 8:
-#line 78 "lexer.y"
+#line 76 "lexer.y"
               {(yyval.n)=makeTree1("",(yyvsp[0].n));}
-#line 1603 "y.tab.c"
+#line 1601 "y.tab.c"
     break;
 
   case 9:
-#line 79 "lexer.y"
+#line 77 "lexer.y"
                             {(yyval.n)=makeTree1("",(yyvsp[0].n));}
-#line 1609 "y.tab.c"
+#line 1607 "y.tab.c"
     break;
 
   case 10:
-#line 80 "lexer.y"
+#line 78 "lexer.y"
                 {(yyval.n)=makeTree1("",(yyvsp[0].n));}
-#line 1615 "y.tab.c"
+#line 1613 "y.tab.c"
     break;
 
   case 11:
-#line 81 "lexer.y"
+#line 79 "lexer.y"
                  {(yyval.n)=makeTree1("",(yyvsp[0].n));}
-#line 1621 "y.tab.c"
+#line 1619 "y.tab.c"
     break;
 
   case 12:
-#line 82 "lexer.y"
+#line 80 "lexer.y"
        {(yyval.n)=(yyvsp[0].n);}
-#line 1627 "y.tab.c"
+#line 1625 "y.tab.c"
     break;
 
   case 13:
-#line 83 "lexer.y"
+#line 81 "lexer.y"
         {(yyval.n)=makeTree1("",(yyvsp[0].n));}
-#line 1633 "y.tab.c"
+#line 1631 "y.tab.c"
     break;
 
   case 14:
-#line 84 "lexer.y"
+#line 82 "lexer.y"
                         {(yyval.n)=makeTree2("BLOCK",(yyvsp[-1].n),makenode("ENDOFBLOCK"));}
-#line 1639 "y.tab.c"
+#line 1637 "y.tab.c"
     break;
 
   case 15:
-#line 85 "lexer.y"
+#line 83 "lexer.y"
                      {(yyval.n)=makeTree1("",(yyvsp[0].n));}
-#line 1645 "y.tab.c"
+#line 1643 "y.tab.c"
     break;
 
   case 16:
-#line 86 "lexer.y"
+#line 84 "lexer.y"
   {(yyval.n)=makeTree1("",(yyvsp[0].n));}
-#line 1651 "y.tab.c"
+#line 1649 "y.tab.c"
     break;
 
   case 17:
-#line 87 "lexer.y"
+#line 85 "lexer.y"
          {(yyval.n)=makeTree1("",(yyvsp[0].n));}
-#line 1657 "y.tab.c"
+#line 1655 "y.tab.c"
     break;
 
   case 18:
-#line 88 "lexer.y"
+#line 86 "lexer.y"
               {(yyval.n)=makeTree1("",(yyvsp[0].n));}
-#line 1663 "y.tab.c"
+#line 1661 "y.tab.c"
     break;
 
   case 19:
-#line 89 "lexer.y"
-                               {(yyval.n)=makeTree1("var assignment",(yyvsp[0].n));}
-#line 1669 "y.tab.c"
+#line 87 "lexer.y"
+                               {(yyval.n)=makeTree1("assignment",(yyvsp[0].n));}
+#line 1667 "y.tab.c"
     break;
 
   case 20:
-#line 90 "lexer.y"
+#line 88 "lexer.y"
                                          {node* t1=makeTree2("id's",makenode((yyvsp[-4].valueToShow)),(yyvsp[-3].n));(yyval.n)=makeTree2("vardeclare",t1,(yyvsp[-1].n));}
-#line 1675 "y.tab.c"
+#line 1673 "y.tab.c"
     break;
 
   case 22:
-#line 92 "lexer.y"
+#line 90 "lexer.y"
                        {(yyval.n)=makeTree1("funcCall",makenode((yyvsp[-3].valueToShow)));}
-#line 1681 "y.tab.c"
+#line 1679 "y.tab.c"
     break;
 
   case 23:
-#line 93 "lexer.y"
+#line 91 "lexer.y"
                             {(yyval.n)=makeTree2("FUNCCALL",makenode((yyvsp[-5].valueToShow)),makenode((yyvsp[-3].valueToShow)));}
-#line 1687 "y.tab.c"
+#line 1685 "y.tab.c"
     break;
 
   case 24:
-#line 94 "lexer.y"
+#line 92 "lexer.y"
                           {(yyval.n)=makeTree2("FUNCCALL",makenode((yyvsp[-4].valueToShow)),(yyvsp[-2].n));}
-#line 1693 "y.tab.c"
+#line 1691 "y.tab.c"
     break;
 
   case 25:
-#line 94 "lexer.y"
+#line 92 "lexer.y"
                                                                                                               {(yyval.n)=makeTree3("funcCall",makenode((yyvsp[-6].valueToShow)),makenode((yyvsp[-4].valueToShow)),(yyvsp[-2].n));}
-#line 1699 "y.tab.c"
+#line 1697 "y.tab.c"
     break;
 
   case 26:
-#line 95 "lexer.y"
+#line 93 "lexer.y"
              {(yyval.n)=makenode((yyvsp[0].valueToShow));}
-#line 1705 "y.tab.c"
+#line 1703 "y.tab.c"
     break;
 
   case 27:
-#line 95 "lexer.y"
+#line 93 "lexer.y"
                                     {(yyval.n)=makenode((yyvsp[0].valueToShow));}
-#line 1711 "y.tab.c"
+#line 1709 "y.tab.c"
     break;
 
   case 28:
-#line 96 "lexer.y"
+#line 94 "lexer.y"
                                        {(yyval.n)=makeTree2("parameter list",(yyvsp[-2].n),(yyvsp[0].n));}
-#line 1717 "y.tab.c"
+#line 1715 "y.tab.c"
     break;
 
   case 29:
-#line 97 "lexer.y"
+#line 95 "lexer.y"
           {(yyval.n)=(yyvsp[0].n);}
-#line 1723 "y.tab.c"
+#line 1721 "y.tab.c"
     break;
 
   case 30:
-#line 98 "lexer.y"
+#line 96 "lexer.y"
               {(yyval.n)=makenode("int");}
-#line 1729 "y.tab.c"
+#line 1727 "y.tab.c"
     break;
 
   case 31:
-#line 98 "lexer.y"
+#line 96 "lexer.y"
                                           {(yyval.n)=makenode("real");}
-#line 1735 "y.tab.c"
+#line 1733 "y.tab.c"
     break;
 
   case 32:
-#line 99 "lexer.y"
+#line 97 "lexer.y"
      {(yyval.n)=makenode("char");}
-#line 1741 "y.tab.c"
+#line 1739 "y.tab.c"
     break;
 
   case 33:
-#line 100 "lexer.y"
+#line 98 "lexer.y"
     {(yyval.n)=makenode("bool");}
-#line 1747 "y.tab.c"
+#line 1745 "y.tab.c"
     break;
 
   case 34:
-#line 101 "lexer.y"
+#line 99 "lexer.y"
      {(yyval.n)=makenode("int pointer");}
-#line 1753 "y.tab.c"
+#line 1751 "y.tab.c"
     break;
 
   case 35:
-#line 102 "lexer.y"
+#line 100 "lexer.y"
        {(yyval.n)=makenode("real pointer");}
-#line 1759 "y.tab.c"
+#line 1757 "y.tab.c"
     break;
 
   case 36:
-#line 103 "lexer.y"
+#line 101 "lexer.y"
       {(yyval.n)=makenode("char pointer");}
-#line 1765 "y.tab.c"
+#line 1763 "y.tab.c"
     break;
 
   case 37:
-#line 104 "lexer.y"
+#line 102 "lexer.y"
                                                                                                                     { (yyval.n)=makeTree5("func",makenode((yyvsp[-11].valueToShow)),(yyvsp[-9].n),(yyvsp[-6].n),makeTree2("BODY",(yyvsp[-4].n),(yyvsp[-2].n)),(yyvsp[0].n));}
-#line 1771 "y.tab.c"
+#line 1769 "y.tab.c"
     break;
 
   case 38:
-#line 105 "lexer.y"
+#line 103 "lexer.y"
                                                                                               { (yyval.n)=makeTree5("func",makenode((yyvsp[-10].valueToShow)),(yyvsp[-8].n),(yyvsp[-5].n),(yyvsp[-2].n),(yyvsp[0].n));}
-#line 1777 "y.tab.c"
+#line 1775 "y.tab.c"
     break;
 
   case 39:
-#line 106 "lexer.y"
+#line 104 "lexer.y"
                                                                                 { (yyval.n)=makeTree4("PROC",makenode((yyvsp[-7].valueToShow)),(yyvsp[-5].n),(yyvsp[-2].n),(yyvsp[0].n));}
-#line 1783 "y.tab.c"
+#line 1781 "y.tab.c"
     break;
 
   case 40:
-#line 107 "lexer.y"
+#line 105 "lexer.y"
                                                 {(yyval.n)=makeTree2("while",(yyvsp[-4].n),(yyvsp[-1].n));}
-#line 1789 "y.tab.c"
+#line 1787 "y.tab.c"
     break;
 
   case 42:
-#line 109 "lexer.y"
+#line 107 "lexer.y"
                               {(yyval.n)=makeTree2("",(yyvsp[-2].n),makenode((yyvsp[0].valueToShow)));}
-#line 1795 "y.tab.c"
+#line 1793 "y.tab.c"
     break;
 
   case 43:
-#line 110 "lexer.y"
+#line 108 "lexer.y"
          {(yyval.n)=makenode((yyvsp[0].valueToShow));}
-#line 1801 "y.tab.c"
+#line 1799 "y.tab.c"
     break;
 
   case 44:
-#line 111 "lexer.y"
+#line 109 "lexer.y"
        {(yyval.n)=makenode("");}
-#line 1807 "y.tab.c"
+#line 1805 "y.tab.c"
     break;
 
   case 45:
-#line 112 "lexer.y"
+#line 110 "lexer.y"
                                        {(yyval.n)=makeTree2("=",makenode((yyvsp[-3].valueToShow)),(yyvsp[-1].n));}
-#line 1813 "y.tab.c"
+#line 1811 "y.tab.c"
     break;
 
   case 46:
-#line 113 "lexer.y"
+#line 111 "lexer.y"
                            {(yyval.n)=makeTree2("=",makenode((yyvsp[-3].valueToShow)),(yyvsp[-1].n));}
-#line 1819 "y.tab.c"
+#line 1817 "y.tab.c"
     break;
 
   case 47:
-#line 114 "lexer.y"
-                            {node* opar=(yyvsp[-1].n); (yyval.n)=makeTree1("",makeTree2(opar->token,(yyvsp[-2].n),(yyvsp[0].n)));}
-#line 1825 "y.tab.c"
+#line 112 "lexer.y"
+                            { node* opar=(yyvsp[-1].n); (yyval.n)=makeTree1("",makeTree2(opar->token,(yyvsp[-2].n),(yyvsp[0].n)));}
+#line 1823 "y.tab.c"
     break;
 
   case 48:
-#line 115 "lexer.y"
-                          {node* opar1=(yyvsp[-1].n); ;(yyval.n)=makeTree2(opar1->token,(yyvsp[-2].n),(yyvsp[0].n));}
-#line 1831 "y.tab.c"
+#line 113 "lexer.y"
+                          {struct node* opar1=(yyvsp[-1].n); ;(yyval.n)=makeTree2(opar1->token,(yyvsp[-2].n),(yyvsp[0].n));}
+#line 1829 "y.tab.c"
     break;
 
   case 50:
-#line 116 "lexer.y"
+#line 114 "lexer.y"
        {(yyval.n)=makenode((yyvsp[0].valueToShow));}
-#line 1837 "y.tab.c"
+#line 1835 "y.tab.c"
     break;
 
   case 51:
-#line 117 "lexer.y"
+#line 115 "lexer.y"
     {(yyval.n)=makenode((yyvsp[0].valueToShow));}
-#line 1843 "y.tab.c"
+#line 1841 "y.tab.c"
     break;
 
   case 52:
-#line 118 "lexer.y"
+#line 116 "lexer.y"
            {(yyval.n)=makenode((yyvsp[0].valueToShow));}
-#line 1849 "y.tab.c"
+#line 1847 "y.tab.c"
     break;
 
   case 54:
-#line 120 "lexer.y"
+#line 118 "lexer.y"
             {(yyval.n)=makenode((yyvsp[0].valueToShow));}
-#line 1855 "y.tab.c"
+#line 1853 "y.tab.c"
     break;
 
   case 55:
-#line 121 "lexer.y"
+#line 119 "lexer.y"
                  {(yyval.n)=(yyvsp[0].n);}
-#line 1861 "y.tab.c"
+#line 1859 "y.tab.c"
     break;
 
   case 56:
-#line 121 "lexer.y"
+#line 119 "lexer.y"
                                  {(yyval.n)=(yyvsp[0].n);}
-#line 1867 "y.tab.c"
+#line 1865 "y.tab.c"
     break;
 
   case 57:
-#line 121 "lexer.y"
+#line 119 "lexer.y"
                                                 {(yyval.n)=(yyvsp[0].n);}
-#line 1873 "y.tab.c"
+#line 1871 "y.tab.c"
     break;
 
   case 59:
-#line 122 "lexer.y"
+#line 120 "lexer.y"
                                                              {(yyval.n)=(yyvsp[0].n);}
-#line 1879 "y.tab.c"
+#line 1877 "y.tab.c"
     break;
 
   case 60:
-#line 123 "lexer.y"
-                                                                {node* t=(yyvsp[-1].n);t->node1=(yyvsp[-2].n);t->node2=(yyvsp[0].n);(yyval.n)=t;}
-#line 1885 "y.tab.c"
+#line 121 "lexer.y"
+                                                                {struct node* t=(yyvsp[-1].n);t->node1=(yyvsp[-2].n);t->node2=(yyvsp[0].n);(yyval.n)=t;}
+#line 1883 "y.tab.c"
     break;
 
   case 62:
-#line 125 "lexer.y"
+#line 123 "lexer.y"
                 {(yyval.n)=makenode("<");}
-#line 1891 "y.tab.c"
+#line 1889 "y.tab.c"
     break;
 
   case 63:
-#line 126 "lexer.y"
+#line 124 "lexer.y"
              {(yyval.n)=makenode("<=");}
-#line 1897 "y.tab.c"
+#line 1895 "y.tab.c"
     break;
 
   case 64:
-#line 127 "lexer.y"
+#line 125 "lexer.y"
              {(yyval.n)=makenode(">");}
-#line 1903 "y.tab.c"
+#line 1901 "y.tab.c"
     break;
 
   case 65:
-#line 128 "lexer.y"
+#line 126 "lexer.y"
                  {(yyval.n)=makenode("=>");}
-#line 1909 "y.tab.c"
+#line 1907 "y.tab.c"
     break;
 
   case 66:
-#line 129 "lexer.y"
+#line 127 "lexer.y"
        {(yyval.n)=makenode("==");}
-#line 1915 "y.tab.c"
+#line 1913 "y.tab.c"
     break;
 
   case 67:
-#line 130 "lexer.y"
+#line 128 "lexer.y"
           {(yyval.n)=makenode("!=");}
-#line 1921 "y.tab.c"
+#line 1919 "y.tab.c"
     break;
 
   case 69:
-#line 131 "lexer.y"
+#line 129 "lexer.y"
                                                           {(yyval.n)=(yyvsp[0].n);}
-#line 1927 "y.tab.c"
+#line 1925 "y.tab.c"
     break;
 
   case 70:
-#line 132 "lexer.y"
+#line 130 "lexer.y"
            {(yyval.n)=makenode("+");}
-#line 1933 "y.tab.c"
+#line 1931 "y.tab.c"
     break;
 
   case 71:
-#line 132 "lexer.y"
+#line 130 "lexer.y"
                                       {(yyval.n)=makenode("-");}
-#line 1939 "y.tab.c"
+#line 1937 "y.tab.c"
     break;
 
   case 73:
-#line 133 "lexer.y"
+#line 131 "lexer.y"
                                 {(yyval.n)=makeTree1("",(yyvsp[0].n));}
-#line 1945 "y.tab.c"
+#line 1943 "y.tab.c"
     break;
 
   case 74:
-#line 134 "lexer.y"
+#line 132 "lexer.y"
                {(yyval.n)=makenode("*");}
-#line 1951 "y.tab.c"
+#line 1949 "y.tab.c"
     break;
 
   case 75:
-#line 134 "lexer.y"
+#line 132 "lexer.y"
                                            {(yyval.n)=makenode("/");}
-#line 1957 "y.tab.c"
+#line 1955 "y.tab.c"
     break;
 
   case 77:
-#line 136 "lexer.y"
+#line 134 "lexer.y"
     {(yyval.n)=makenode((yyvsp[0].valueToShow));}
-#line 1963 "y.tab.c"
+#line 1961 "y.tab.c"
     break;
 
   case 78:
-#line 137 "lexer.y"
+#line 135 "lexer.y"
       {(yyval.n)=makenode((yyvsp[0].valueToShow));}
-#line 1969 "y.tab.c"
+#line 1967 "y.tab.c"
     break;
 
   case 81:
-#line 139 "lexer.y"
+#line 137 "lexer.y"
      { (yyval.n)=(yyvsp[0].n);}
-#line 1975 "y.tab.c"
+#line 1973 "y.tab.c"
     break;
 
   case 82:
-#line 140 "lexer.y"
+#line 138 "lexer.y"
                                                 {(yyval.n)=makeTree3("if else",(yyvsp[-8].n),(yyvsp[-5].n),(yyvsp[-1].n));}
-#line 1981 "y.tab.c"
+#line 1979 "y.tab.c"
     break;
 
   case 83:
-#line 141 "lexer.y"
+#line 139 "lexer.y"
                           {(yyval.n)=makeTree2("if else",(yyvsp[-4].n),makeTree1("",(yyvsp[-1].n)));}
-#line 1987 "y.tab.c"
+#line 1985 "y.tab.c"
     break;
 
   case 84:
-#line 142 "lexer.y"
+#line 140 "lexer.y"
          {(yyval.n)=(yyvsp[0].n);}
-#line 1993 "y.tab.c"
+#line 1991 "y.tab.c"
     break;
 
   case 85:
-#line 142 "lexer.y"
+#line 140 "lexer.y"
                     {(yyval.n)=(yyvsp[0].n);}
-#line 1999 "y.tab.c"
+#line 1997 "y.tab.c"
     break;
 
   case 86:
-#line 143 "lexer.y"
+#line 141 "lexer.y"
                               {(yyval.n)=makeTree3("comment",makenode("{"),makenode("}"),makenode((yyvsp[-1].valueToShow)));}
-#line 2005 "y.tab.c"
+#line 2003 "y.tab.c"
     break;
 
   case 87:
-#line 147 "lexer.y"
+#line 145 "lexer.y"
                                                                    {(yyval.n)=makeTree4("args",(yyvsp[-2].n),makenode((yyvsp[-5].valueToShow)),(yyvsp[-4].n),(yyvsp[0].n));}
-#line 2011 "y.tab.c"
+#line 2009 "y.tab.c"
     break;
 
   case 88:
-#line 148 "lexer.y"
+#line 146 "lexer.y"
                               {(yyval.n)=makeTree3("args",(yyvsp[0].n),makenode((yyvsp[-3].valueToShow)),(yyvsp[-2].n));}
-#line 2017 "y.tab.c"
+#line 2015 "y.tab.c"
     break;
 
   case 89:
-#line 149 "lexer.y"
+#line 147 "lexer.y"
            {(yyval.n)=makenode("NONE");}
-#line 2023 "y.tab.c"
+#line 2021 "y.tab.c"
     break;
 
   case 90:
-#line 150 "lexer.y"
+#line 148 "lexer.y"
                             {(yyval.n)=makeTree1("return",makenode((yyvsp[-1].valueToShow)));}
-#line 2029 "y.tab.c"
+#line 2027 "y.tab.c"
     break;
 
   case 91:
-#line 151 "lexer.y"
+#line 149 "lexer.y"
         {(yyval.n)=makeTree1("return",makenode((yyvsp[-1].valueToShow)));}
-#line 2035 "y.tab.c"
+#line 2033 "y.tab.c"
     break;
 
   case 92:
-#line 152 "lexer.y"
+#line 150 "lexer.y"
        {(yyval.n)=makeTree1("return",makenode((yyvsp[-1].valueToShow)));}
-#line 2041 "y.tab.c"
+#line 2039 "y.tab.c"
     break;
 
   case 93:
-#line 153 "lexer.y"
+#line 151 "lexer.y"
               {(yyval.n)=makenode("empty");}
-#line 2047 "y.tab.c"
+#line 2045 "y.tab.c"
     break;
 
   case 94:
-#line 153 "lexer.y"
+#line 151 "lexer.y"
                                                         {(yyval.n)=(yyvsp[0].n);}
-#line 2053 "y.tab.c"
+#line 2051 "y.tab.c"
     break;
 
 
-#line 2057 "y.tab.c"
+#line 2055 "y.tab.c"
 
       default: break;
     }
@@ -2285,12 +2283,14 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 155 "lexer.y"
+#line 153 "lexer.y"
 
 int main(){
    yyparse();
    return 0;
 }
+
+
 
 node *initNodes(char *token,node *node1,node* node2,node* node3,node* node4,node* node5,node* node6){
 node *newnode = (node*)malloc(sizeof(node)); 
@@ -2380,209 +2380,268 @@ if(tree->node6)
 printtree(tree->node6,index+1); 
 }
 
-/*############################# symbol ##########################*/
-void initParas(symbol* entry,char* id,char* kind ,char* type,bool isFunc){
-    entry->id = id;
-    entry->kind = kind;
-    entry->type = type;
-    entry->isFunc = isFunc;
-}
-struct symbol *initSymbol(char* id,char* kind ,char* type,bool  isFunc){
-    
-    struct symbol* temp = (symbol*)malloc(sizeof(symbol));
-   
-    initParas(temp, id,kind,type,isFunc);
-    return temp;
-}  
-void freeSymbol(symbol* symbol)
-{
-    symbol->parameters = NULL;
+//////////////////////   stack functions ////////////////////////////////
+void initStack(struct stack *s)
+{                                     
+ s->top=-1;
 }
 
-bool compareSymbol(symbol* s1,symbol* s2)
-{
-    if(strcmp(s1->id,s2->id)==0 && strcmp(s1->type,s2->type)==0)
+int empty(struct stack *s)
     {
-        return 1; 
+      if(s->top == -1)
+      {
+      return(1);
+      }
+     return(0);
     }
-   
-   return 0 ;    
-}
-bool compareSymbol_redeclatrion(symbol* s1,symbol* s2)
-{
-    if(strcmp(s1->id,s2->id)==0)
+
+int full(struct stack *s)
     {
-        return 0; 
+     if(s->top == max-1)
+     {
+     return(1);
+     }
+     return(0);
     }
-   
-   return 1;    
-}
 
-/*############################# node  ##########################*/
-
-/*############################## symbol list ##########################*/
-
-struct symbolList* initSymbolList(symbol* symbol)
-{
-        symbolList* temp = (symbolList*)malloc(sizeof(symbolList));
-        temp->entry = symbol;
-        temp->next = NULL;
-        temp->parent =NULL;
-        return temp;
-
-}
-struct symbolList* initSymbolList1()
-{
-        symbolList* temp = (symbolList*)malloc(sizeof(symbolList));
-        temp->entry = NULL;
-        temp->next = NULL;
-        temp->parent =NULL;
-        return temp;
-
-}
-struct symbol* find_symbol(symbol* symbol, symbolList* symbolList)
-{
-    if(compareSymbol(symbolList->entry , symbol))
+void push(struct stack *s, struct symbolTable x)
     {
-        return symbolList->entry;
+    s->top = s->top+1;
+    s->data[s->top]=x;
     }
-    
-    while(symbolList->next != NULL)
+
+struct symbolTable pop(struct stack *s)
     {
-        symbolList = symbolList->next;
-        if(compareSymbol(symbolList->entry , symbol))
-        {
-            return symbolList->entry;
-        }
+    struct symbolTable x;
+    x=s->data[s->top];
+    s->top=s->top-1;
+    return(x);
     }
-   
-   return NULL;
+
+//////////////////////// symbol functions ////////////////////////////////
+struct symbol initSymbol(char* id,char* type,char* kind,int isFunc,int par){
+    struct symbol s ;
+    s.id=id;
+    s.type=type;
+    s.kind=kind;s.isFunc=isFunc;s.paraNum=par;
+   // printf("symbol creaded successfully !! \n");
+    return s;
+}
+int compareSymbols(struct symbol s1,struct symbol s2){
+    if(strcmp(s1.id,s2.id)!=0){
+        return 0;
+    }
+    return 1;
+
+}
+//////////////////////  symbol table functions ////////////////
+void initTable1(struct symbolTable* table){
+    table->isMainExist=0;
+    table->top=-1;
+}
+
+struct symbolTable  initTable(){
+    struct symbolTable table;
+    table.isMainExist=0;
+    table.top=-1;
+    return table;
+        printf("table creaded successfully !!\n ");//
+
 
 }
 
-bool find_redelcatrion(symbol* symbol , symbolList* symbolList1)
-{
- 
-    if(compareSymbol_redeclatrion(symbolList1->entry , symbol))
-    {
-        return 1;
+void insertSymbol(struct symbolTable* table,struct symbol s1 ){
+    if(lookup(table,s1)==0){
+        table->top++;
+        table->entries[table->top]=s1;
+        //printf("symbol add successfully !!\n");
     }
-    
-    while(symbolList1->next != NULL)
-    {
-        symbolList1 = symbolList1->next;
-        if(compareSymbol_redeclatrion(symbolList1->entry , symbol))
-        {
+    else{
+        printf("already declared !!\n");
+    }
+
+
+}
+
+int lookup(struct symbolTable* table,struct symbol s1){
+    for(int i=0;i<=table->top;i++){
+        if(compareSymbols(table->entries[i],s1)==1){
             return 1;
         }
     }
-   
     return 0;
-
-  
-}
-void delete(symbol* newsymbol,symbol* oldsymbol ){
-
-    oldsymbol->kind = newsymbol->kind;
-
-
 }
 
-void insert_symbol(symbol* symbol , symbolList* symbolList1)
-{
-    if(find_symbol(symbol,symbolList1) != NULL)
+
+int xx(){
     {
-       symbolList1->next = (symbolList*)malloc(sizeof(symbolList));
-       symbolList1->next->entry = symbol;
-     
-    }
-    else
-    {
-       if(!find_redelcatrion(symbol,symbolList1))
-       {
-           printf( "%s already reladrted with the same type " , symbol->id);
-           
-       }
-       else
-       {
-           delete(find_symbol(symbol,symbolList1),symbol);
-           
-       }
-       
-    }
     
-
-
-
-}
-/*############################## symbol table  ##########################*/
-
-
- struct symbolTable initTable(){
-        symbolTable table;
-        table.globalTable=initSymbolList1();
-        table.currentTable=initSymbolList1();
-        return table;
-}
-
-
-void startCode(node* tree,symbolTable table){
-    table=initTable();
-    checkTree(tree,table); 
+    int x;
+    {
+        
+        x=7.0;
+        return x;
 
     }
-
-
-void insert(symbolTable* sList,symbol* s){
-    insert_symbol(s,sList->currentTable);
+    return x;
+    }
+    return 0;
 }
-void addParent(symbolList* parent,symbolList* child){
-    child->parent=parent;
+///////////////////////  data functions ///////////////////
+/*
+void  initData(struct Data* data){
+    struct Data data;
+    data->top=-1;
+    data->countMain=0;
+    return data;
+        printf("data creaded successfully !! \n");
 
 }
-char* checkCurrentNode(char* token){
+void addTable(struct Data* data,struct symbolTable table){
+    data->top++;
+    data->tables[data->top]=table;
+            printf("table added successfully !!\n ");
 
-    if(strcmp("vardeclare",token))
-        return "vardeclare";
-    if(strcmp("funcdeclar",token))
-        return "funcdeclar"; 
-    if(strcmp("PROC",token))
-        return "PROC";                 
+
+}
+*/
+////////////////  work with tree //////////////////
+void insertVar(struct node* tree,struct symbolTable* table){
+    struct symbol s1=initSymbol(tree->node1->node1->token,tree->node2->token,"Var",0,0);
+    insertSymbol(table,s1);
+}
+int isDeclared(char* id,struct  symbolTable* table){
+    for (int i = 0; i <= table->top; i++)
+        {   if(strcmp(id,table->entries[i].id)==0)
+                return 1;
+
+        }  
+        return 0;   
+}
+struct symbol* getSymbol(char* id,struct  symbolTable* table){
+    
+    for (int i = 0; i <= table->top; i++)
+        {   if(strcmp(id,table->entries[i].id)==0){
+                return &table->entries[i];
+                
+        }
+        }  
+        return NULL;   
+}
+
+int typeCheck(char* type,struct  symbol s){
+    if(strcmp(type,s.type)==0)
+        return 1;
+
+    return 0;
         
 }
+int isNumber(char* type){
+    int len=strlen(type);
+    for (int i = 0; i < len; i++){   
+        if (!isdigit(type[i])) 
+        return 0;
+    }
+    return 1;
 
-void insertVar(node * tree ,symbolTable table){
-    struct symbol* entry;
-   entry= initSymbol(tree->node1->node1->token,"VAR",tree->node2->token,0);
+}
+int isInt(char* type){
+    int len=strlen(type);
+    for (int i = 0; i < len; i++){   
+        if (type[i]=='.' || isdigit(type[i])==0) 
+        return 0;
+    }
+    return 1;
+
+}
+
+void assignmentCheck(struct node* tree,struct symbolTable* table){
+    char* id=tree->node1->node1->token;
+    char* type=tree->node1->node2->token;
+    struct symbol* s1=getSymbol(id,table);
    
-   insert_symbol(entry,table.currentTable);
-   // if(entry->id=="main")
-      //  table.checkMain++;
     
+      if(!isDeclared(id,table)){
+    printf("error:'%s' is not declared!\n",id);
+      } 
+      if(strcmp(s1->type,"int")==0){
+          if(!isInt(type)){
+              printf("error:type dismatch!\n");
     
+          }
+      }
+      
+}         
+//////// func check    ////////
+void insertParams(struct node* tree,struct symbol* s1){
+
+
 }
-void checkTree(node* tree,symbolTable table){
+
+void insertFunc(struct node* tree,struct symbolTable* table){
+struct symbol s1=initSymbol(tree->node1->token,tree->node2->token,"func",1,0);
+        if(strcmp(s1.id,"main")==0){
+            table->isMainExist++;
+        }
+    insertSymbol(table,s1);
+    //insertParams(tree->node3,s1);
+
+}
+int mainCount(struct symbolTable* table){
+    int count=0;
+    
+        count=table->isMainExist;
+    
+    return count;
+
+}
+
+      
+//////// ///////////////// ////////
+
+void scanTree(struct node* tree,struct symbolTable* table ){
     if(strcmp("vardeclare",tree->token)==0){
-       insertVar(tree,table);        
-}
+        
+        insertVar(tree,table);
+    }
+    if(strcmp("assignment",tree->token)==0){
+        assignmentCheck(tree,table);
+
+    }
+    if(strcmp("func",tree->token)==0){
+       insertFunc(tree,table);
+
+    }
+    
     if(tree->node1)
-        checkTree(tree->node1,table);
+        scanTree(tree->node1,table);
     if(tree->node2)
-        checkTree(tree->node2,table);
+        scanTree(tree->node2,table);
     if(tree->node3)
-        checkTree(tree->node3,table);
-    if(tree->node4)
-        checkTree(tree->node4,table);
+        scanTree(tree->node3,table);
+     if(tree->node4)
+        scanTree(tree->node4,table);
     if(tree->node5)
-        checkTree(tree->node5,table);
+        scanTree(tree->node5,table);
     if(tree->node6)
-        checkTree(tree->node6,table);                                     
+        scanTree(tree->node6,table);                   
+}    
+void startCode(struct node* tree,struct symbolTable* table){
+   // initStack(&st);
+   // initData(&data);
+     initTable1(table);
+    scanTree(tree,table);
+    if(mainCount(table)>1){
+    printf("error: function main already exist!\n");
+
+    }
+    if(mainCount(table)<1){
+    printf("error: function main is not exist!\n");
+    }
+    
 }
 
-
-
-
-
+    
 
 
 

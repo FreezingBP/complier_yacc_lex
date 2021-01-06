@@ -2,10 +2,8 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include"lex.yy.c"
-#include"symbol.h"
-
-
-
+#include "SymbolTable.h"
+struct symbolTable table;
 
 %}
 // Tokens Definition
@@ -69,7 +67,7 @@
 %type<n> return-val more-val expr simple-expression ST ST1 body term factor additive-expression relop parameter_list  
 
 %%
-program: declaration-list{  symbolTable table;  printtree($1,0);startCode($1,table);}  | %empty;
+program: declaration-list{   printtree($1,0);startCode($1,&table);}  | %empty;
 
 declaration-list: /*empty*/{$$=makenode("");}|
 declaration-list options  {$$=makeTree2("",$1,$2);} |
@@ -86,7 +84,7 @@ options : declaration{$$=makeTree1("",$1);}
 |S{$$=makeTree1("",$1);} 
 |comment {$$=makeTree1("",$1);} 
 |iter-statment{$$=makeTree1("",$1);};
-var-declaration: var-assignment{$$=makeTree1("var assignment",$1);} 
+var-declaration: var-assignment{$$=makeTree1("assignment",$1);} 
 | VAR ID more-vars DECLARE data-type EOL {node* t1=makeTree2("id's",makenode($2),$3);$$=makeTree2("vardeclare",t1,$5);}|
 VAR ID more-vars DECLARE STRING '['NUM']' EOL ;
 funcall: ID '(' ')' EOL{$$=makeTree1("funcCall",makenode($1));}|
@@ -111,8 +109,8 @@ COMMA ID {$$=makenode($2);}|
 %empty {$$=makenode("");};
 var-assignment : ID ASSIGNMENT val EOL {$$=makeTree2("=",makenode($1),$3);}| 
 ID ASSIGNMENT more-val EOL {$$=makeTree2("=",makenode($1),$3);} ;
-more-val: val opperators val{node* opar=$2; $$=makeTree1("",makeTree2(opar->token,$1,$3));}| 
- val opperators  more-val {node* opar1=$2; ;$$=makeTree2(opar1->token,$1,$3);} | %empty  ; 
+more-val: val opperators val{ node* opar=$2; $$=makeTree1("",makeTree2(opar->token,$1,$3));}| 
+ val opperators  more-val {struct node* opar1=$2; ;$$=makeTree2(opar1->token,$1,$3);} | %empty  ; 
 val: ID{$$=makenode($1);} |
 NUM {$$=makenode($1);}|
 ADDRESS ID {$$=makenode($2);} |
@@ -120,7 +118,7 @@ POWER val |
 STRINGVALUE {$$=makenode($1);} ; 
 opperators: mulop{$$=$1;} | addop{$$=$1;} |relop{$$=$1;};                              
 expr:  simple-expression logical-op expr  | simple-expression{$$=$1;};
-simple-expression: additive-expression relop additive-expression{node* t=$2;t->node1=$1;t->node2=$3;$$=t;} |
+simple-expression: additive-expression relop additive-expression{struct node* t=$2;t->node1=$1;t->node2=$3;$$=t;} |
  additive-expression;
 relop: LESS_THAN{$$=makenode("<");} |
 LESS_OR_EQUAL{$$=makenode("<=");} |
@@ -157,6 +155,8 @@ int main(){
    yyparse();
    return 0;
 }
+
+
 
 node *initNodes(char *token,node *node1,node* node2,node* node3,node* node4,node* node5,node* node6){
 node *newnode = (node*)malloc(sizeof(node)); 
@@ -246,209 +246,268 @@ if(tree->node6)
 printtree(tree->node6,index+1); 
 }
 
-/*############################# symbol ##########################*/
-void initParas(symbol* entry,char* id,char* kind ,char* type,bool isFunc){
-    entry->id = id;
-    entry->kind = kind;
-    entry->type = type;
-    entry->isFunc = isFunc;
-}
-struct symbol *initSymbol(char* id,char* kind ,char* type,bool  isFunc){
-    
-    struct symbol* temp = (symbol*)malloc(sizeof(symbol));
-   
-    initParas(temp, id,kind,type,isFunc);
-    return temp;
-}  
-void freeSymbol(symbol* symbol)
-{
-    symbol->parameters = NULL;
+//////////////////////   stack functions ////////////////////////////////
+void initStack(struct stack *s)
+{                                     
+ s->top=-1;
 }
 
-bool compareSymbol(symbol* s1,symbol* s2)
-{
-    if(strcmp(s1->id,s2->id)==0 && strcmp(s1->type,s2->type)==0)
+int empty(struct stack *s)
     {
-        return 1; 
+      if(s->top == -1)
+      {
+      return(1);
+      }
+     return(0);
     }
-   
-   return 0 ;    
-}
-bool compareSymbol_redeclatrion(symbol* s1,symbol* s2)
-{
-    if(strcmp(s1->id,s2->id)==0)
+
+int full(struct stack *s)
     {
-        return 0; 
+     if(s->top == max-1)
+     {
+     return(1);
+     }
+     return(0);
     }
-   
-   return 1;    
-}
 
-/*############################# node  ##########################*/
-
-/*############################## symbol list ##########################*/
-
-struct symbolList* initSymbolList(symbol* symbol)
-{
-        symbolList* temp = (symbolList*)malloc(sizeof(symbolList));
-        temp->entry = symbol;
-        temp->next = NULL;
-        temp->parent =NULL;
-        return temp;
-
-}
-struct symbolList* initSymbolList1()
-{
-        symbolList* temp = (symbolList*)malloc(sizeof(symbolList));
-        temp->entry = NULL;
-        temp->next = NULL;
-        temp->parent =NULL;
-        return temp;
-
-}
-struct symbol* find_symbol(symbol* symbol, symbolList* symbolList)
-{
-    if(compareSymbol(symbolList->entry , symbol))
+void push(struct stack *s, struct symbolTable x)
     {
-        return symbolList->entry;
+    s->top = s->top+1;
+    s->data[s->top]=x;
     }
-    
-    while(symbolList->next != NULL)
+
+struct symbolTable pop(struct stack *s)
     {
-        symbolList = symbolList->next;
-        if(compareSymbol(symbolList->entry , symbol))
-        {
-            return symbolList->entry;
-        }
+    struct symbolTable x;
+    x=s->data[s->top];
+    s->top=s->top-1;
+    return(x);
     }
-   
-   return NULL;
+
+//////////////////////// symbol functions ////////////////////////////////
+struct symbol initSymbol(char* id,char* type,char* kind,int isFunc,int par){
+    struct symbol s ;
+    s.id=id;
+    s.type=type;
+    s.kind=kind;s.isFunc=isFunc;s.paraNum=par;
+   // printf("symbol creaded successfully !! \n");
+    return s;
+}
+int compareSymbols(struct symbol s1,struct symbol s2){
+    if(strcmp(s1.id,s2.id)!=0){
+        return 0;
+    }
+    return 1;
+
+}
+//////////////////////  symbol table functions ////////////////
+void initTable1(struct symbolTable* table){
+    table->isMainExist=0;
+    table->top=-1;
+}
+
+struct symbolTable  initTable(){
+    struct symbolTable table;
+    table.isMainExist=0;
+    table.top=-1;
+    return table;
+        printf("table creaded successfully !!\n ");//
+
 
 }
 
-bool find_redelcatrion(symbol* symbol , symbolList* symbolList1)
-{
- 
-    if(compareSymbol_redeclatrion(symbolList1->entry , symbol))
-    {
-        return 1;
+void insertSymbol(struct symbolTable* table,struct symbol s1 ){
+    if(lookup(table,s1)==0){
+        table->top++;
+        table->entries[table->top]=s1;
+        //printf("symbol add successfully !!\n");
     }
-    
-    while(symbolList1->next != NULL)
-    {
-        symbolList1 = symbolList1->next;
-        if(compareSymbol_redeclatrion(symbolList1->entry , symbol))
-        {
+    else{
+        printf("already declared !!\n");
+    }
+
+
+}
+
+int lookup(struct symbolTable* table,struct symbol s1){
+    for(int i=0;i<=table->top;i++){
+        if(compareSymbols(table->entries[i],s1)==1){
             return 1;
         }
     }
-   
     return 0;
-
-  
-}
-void delete(symbol* newsymbol,symbol* oldsymbol ){
-
-    oldsymbol->kind = newsymbol->kind;
-
-
 }
 
-void insert_symbol(symbol* symbol , symbolList* symbolList1)
-{
-    if(find_symbol(symbol,symbolList1) != NULL)
+
+int xx(){
     {
-       symbolList1->next = (symbolList*)malloc(sizeof(symbolList));
-       symbolList1->next->entry = symbol;
-     
-    }
-    else
-    {
-       if(!find_redelcatrion(symbol,symbolList1))
-       {
-           printf( "%s already reladrted with the same type " , symbol->id);
-           
-       }
-       else
-       {
-           delete(find_symbol(symbol,symbolList1),symbol);
-           
-       }
-       
-    }
     
-
-
-
-}
-/*############################## symbol table  ##########################*/
-
-
- struct symbolTable initTable(){
-        symbolTable table;
-        table.globalTable=initSymbolList1();
-        table.currentTable=initSymbolList1();
-        return table;
-}
-
-
-void startCode(node* tree,symbolTable table){
-    table=initTable();
-    checkTree(tree,table); 
+    int x;
+    {
+        
+        x=7.0;
+        return x;
 
     }
-
-
-void insert(symbolTable* sList,symbol* s){
-    insert_symbol(s,sList->currentTable);
+    return x;
+    }
+    return 0;
 }
-void addParent(symbolList* parent,symbolList* child){
-    child->parent=parent;
+///////////////////////  data functions ///////////////////
+/*
+void  initData(struct Data* data){
+    struct Data data;
+    data->top=-1;
+    data->countMain=0;
+    return data;
+        printf("data creaded successfully !! \n");
 
 }
-char* checkCurrentNode(char* token){
+void addTable(struct Data* data,struct symbolTable table){
+    data->top++;
+    data->tables[data->top]=table;
+            printf("table added successfully !!\n ");
 
-    if(strcmp("vardeclare",token))
-        return "vardeclare";
-    if(strcmp("funcdeclar",token))
-        return "funcdeclar"; 
-    if(strcmp("PROC",token))
-        return "PROC";                 
+
+}
+*/
+////////////////  work with tree //////////////////
+void insertVar(struct node* tree,struct symbolTable* table){
+    struct symbol s1=initSymbol(tree->node1->node1->token,tree->node2->token,"Var",0,0);
+    insertSymbol(table,s1);
+}
+int isDeclared(char* id,struct  symbolTable* table){
+    for (int i = 0; i <= table->top; i++)
+        {   if(strcmp(id,table->entries[i].id)==0)
+                return 1;
+
+        }  
+        return 0;   
+}
+struct symbol* getSymbol(char* id,struct  symbolTable* table){
+    
+    for (int i = 0; i <= table->top; i++)
+        {   if(strcmp(id,table->entries[i].id)==0){
+                return &table->entries[i];
+                
+        }
+        }  
+        return NULL;   
+}
+
+int typeCheck(char* type,struct  symbol s){
+    if(strcmp(type,s.type)==0)
+        return 1;
+
+    return 0;
         
 }
+int isNumber(char* type){
+    int len=strlen(type);
+    for (int i = 0; i < len; i++){   
+        if (!isdigit(type[i])) 
+        return 0;
+    }
+    return 1;
 
-void insertVar(node * tree ,symbolTable table){
-    struct symbol* entry;
-   entry= initSymbol(tree->node1->node1->token,"VAR",tree->node2->token,0);
+}
+int isInt(char* type){
+    int len=strlen(type);
+    for (int i = 0; i < len; i++){   
+        if (type[i]=='.' || isdigit(type[i])==0) 
+        return 0;
+    }
+    return 1;
+
+}
+
+void assignmentCheck(struct node* tree,struct symbolTable* table){
+    char* id=tree->node1->node1->token;
+    char* type=tree->node1->node2->token;
+    struct symbol* s1=getSymbol(id,table);
    
-   insert_symbol(entry,table.currentTable);
-   // if(entry->id=="main")
-      //  table.checkMain++;
     
+      if(!isDeclared(id,table)){
+    printf("error:'%s' is not declared!\n",id);
+      } 
+      if(strcmp(s1->type,"int")==0){
+          if(!isInt(type)){
+              printf("error:type dismatch!\n");
     
+          }
+      }
+      
+}         
+//////// func check    ////////
+void insertParams(struct node* tree,struct symbol* s1){
+
+
 }
-void checkTree(node* tree,symbolTable table){
+
+void insertFunc(struct node* tree,struct symbolTable* table){
+struct symbol s1=initSymbol(tree->node1->token,tree->node2->token,"func",1,0);
+        if(strcmp(s1.id,"main")==0){
+            table->isMainExist++;
+        }
+    insertSymbol(table,s1);
+    //insertParams(tree->node3,s1);
+
+}
+int mainCount(struct symbolTable* table){
+    int count=0;
+    
+        count=table->isMainExist;
+    
+    return count;
+
+}
+
+      
+//////// ///////////////// ////////
+
+void scanTree(struct node* tree,struct symbolTable* table ){
     if(strcmp("vardeclare",tree->token)==0){
-       insertVar(tree,table);        
-}
+        
+        insertVar(tree,table);
+    }
+    if(strcmp("assignment",tree->token)==0){
+        assignmentCheck(tree,table);
+
+    }
+    if(strcmp("func",tree->token)==0){
+       insertFunc(tree,table);
+
+    }
+    
     if(tree->node1)
-        checkTree(tree->node1,table);
+        scanTree(tree->node1,table);
     if(tree->node2)
-        checkTree(tree->node2,table);
+        scanTree(tree->node2,table);
     if(tree->node3)
-        checkTree(tree->node3,table);
-    if(tree->node4)
-        checkTree(tree->node4,table);
+        scanTree(tree->node3,table);
+     if(tree->node4)
+        scanTree(tree->node4,table);
     if(tree->node5)
-        checkTree(tree->node5,table);
+        scanTree(tree->node5,table);
     if(tree->node6)
-        checkTree(tree->node6,table);                                     
+        scanTree(tree->node6,table);                   
+}    
+void startCode(struct node* tree,struct symbolTable* table){
+   // initStack(&st);
+   // initData(&data);
+     initTable1(table);
+    scanTree(tree,table);
+    if(mainCount(table)>1){
+    printf("error: function main already exist!\n");
+
+    }
+    if(mainCount(table)<1){
+    printf("error: function main is not exist!\n");
+    }
+    
 }
 
-
-
-
-
+    
 
 
 
