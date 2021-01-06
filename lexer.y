@@ -85,8 +85,8 @@ options : declaration{$$=makeTree1("",$1);}
 |comment {$$=makeTree1("",$1);} 
 |iter-statment{$$=makeTree1("",$1);};
 var-declaration: var-assignment{$$=makeTree1("assignment",$1);} 
-| VAR ID more-vars DECLARE data-type EOL {node* t1=makeTree2("id's",makenode($2),$3);$$=makeTree2("vardeclare",t1,$5);}|
-VAR ID more-vars DECLARE STRING '['NUM']' EOL ;
+| VAR ID more-vars DECLARE data-type EOL {node* t1=makeTree2("id's",makenode($2),$3);$$=makeTree2("vardeclare",t1,$5);}
+|VAR ID more-vars DECLARE STRING '['NUM']' EOL {node* t1=makeTree2("id's",makenode($2),$3);$$=makeTree3("vardeclare",t1,makenode($5),$7);} ;
 funcall: ID '(' ')' EOL{$$=makeTree1("funcCall",makenode($1));}|
 ID ASSIGNMENT ID '(' ')' EOL{$$=makeTree2("FUNCCALL",makenode($1),makenode($3));} |
 ID '(' funcallpar ')' EOL {$$=makeTree2("FUNCCALL",makenode($1),$3);}| ID ASSIGNMENT ID '(' funcallpar ')' EOL{$$=makeTree3("funcCall",makenode($1),makenode($3),$5);};
@@ -419,6 +419,14 @@ int isInt(char* type){
     }
     return 1;
 
+ int isBool(char* type){
+    if(strcmp(type,"true")==0 || strcmp(type,"false")==0){
+        
+        return 1;
+    }
+    return 0;       
+}   
+
 }
 
 void assignmentCheck(struct node* tree,struct symbolTable* table){
@@ -430,12 +438,26 @@ void assignmentCheck(struct node* tree,struct symbolTable* table){
       if(!isDeclared(id,table)){
     printf("error:'%s' is not declared!\n",id);
       } 
+      
       if(strcmp(s1->type,"int")==0){
           if(!isInt(type)){
               printf("error:type dismatch!\n");
     
           }
       }
+      
+      if(strcmp(s1->type,"bool")==0){
+          
+          if(!isBool(type))
+          {
+               printf("error:type dismatch!\n");
+          }
+             
+    
+          }
+      }
+
+
       
 }         
 //////// func check    ////////

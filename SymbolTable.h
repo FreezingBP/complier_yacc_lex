@@ -70,6 +70,7 @@ int typeCheck(char* type,struct  symbol s);
 struct symbol* getSymbol(char* id,struct  symbolTable* table);
 int isNumber(char* type);
 int isInt(char* type);
+int isBool(char* type);
 
 
 
